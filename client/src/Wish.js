@@ -30,7 +30,7 @@ function Wish(props) {
         setUser("");
 
     }
-    console.log(wish)
+
     if (!wish) {
         return <p>Loading...</p>
     }

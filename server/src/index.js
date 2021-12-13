@@ -9,7 +9,7 @@ const port = process.env.PORT || 8080;
 async function main() {
   try {
     await connectDatabase();
-    //await seedData();
+    await seedData();
     const server = createServer();
     server.listen(port, () =>
       console.log(`${appName} running on port ${port}!`)

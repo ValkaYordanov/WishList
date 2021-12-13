@@ -1,8 +1,11 @@
 import mongoose from "mongoose";
 import Wish from "./models/wish.js";
+import User from "./models/user.js";
+import bcrypt, { } from "bcryptjs";
 
 async function connectDatabase() {
   const connectionString = process.env.MONGODB_URL;
+
 
   if (!connectionString) {
     throw new Error(
@@ -14,43 +17,79 @@ async function connectDatabase() {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
-}
 
+
+
+}
+async function hashPass(rawPass) {
+  return new Promise((resolve, reject) => {
+    bcrypt.hash(rawPass, 10, function (err, hash) {
+      if (err) reject(err);
+      else resolve(hash);
+    });
+  });
+}
 async function seedData() {
   const numberOfWishes = await Wish.countDocuments();
+  const numberOfUsers = await User.countDocuments();
+  const users = [
+
+    { username: "val", type: "admin", password: "asd" },
+    { username: "paul", type: "visitor", password: "asd" },
+
+  ];
+  if (numberOfUsers == 0) {
+
+    users.forEach(async (user) => {
+      const hashedPassword = await new Promise((resolve, reject) => {
+        bcrypt.hash(user.password, 10, function (err, hash) {
+          if (err) reject(err);
+          else resolve(hash);
+        });
+      });
+
+      user.password = hashedPassword; // Storing the hash+salt on the user object.
+      var user = User.create({ username: user.username, type: user.type, password: user.password });
+    });
+
+
+  }
+
+
 
   if (numberOfWishes == 0) {
+
+    var user = await User.findOne({ username: 'val' })
+    console.log(user)
+    var id = user.id
     const someData = [{
-      'content': 'The best phone in the world right now is the Samsung Galaxy S21 Ultra, but if that isn\'t for you we\'ve got 14 other top picks that may suit you, including the best iPhones and a variety of other Android phones. Our phone experts have spent years reviewing smartphones, and we\'ve tested all the best on the market to put together this definitive list of the very best smartphones you can buy in 2021.',
-      'owner': ' Matt Swider ',
-      'authorName': ' Matt Swider ',
-      'likes': 6,
+      'title': 'The best phone in the world right now is the Samsung Galaxy S21 Ultra, but if that isn\'t for you we\'ve got 14 other top picks that may suit you, including the best iPhones and a variety of other Android phones. Our phone experts have spent years reviewing smartphones, and we\'ve tested all the best on the market to put together this definitive list of the very best smartphones you can buy in 2021.',
+      'description': ' Matt Swider ',
+      'externalLink': ' Matt Swider ',
+      'vote': 6,
       'comments':
         [{
-          'userName': 'Valentin Yordanov',
-          'content': 'I completly agree! It is one of the best phone I have ever seen!'
-        },
-        {
-          'userName': 'John Telerik',
-          'content': 'I am interested in that phone. I will look forward and maybe get some more information and buy it actually!'
-        }],
-      'date': new Date('2014-03-01T08:00:00Z')
+          'content': 'I completly agree! It is one of the best phone I have ever seen!',
+          'submitter': id,
+          'date': new Date('2014-03-01T08:00:00Z')
+        }]
     },
     {
-      'content': 'What are the best phones in the UK? The best phone in the U.K.that we\'ve tested is the iPhone 13 Pro Max. The whole iPhone 13 line is excellent (two more models can be found on this list), but the Pro Max model stands out with its larger display, enhanced cameras and the longest battery life in the lineup.',
-      'owner': ' Richard Priday ',
-      'authorName': ' Richard Priday ',
-      'likes': 12,
+      'title': 'Title',
+      'description': ' Matt Swider ',
+      'externalLink': ' Matt Swider ',
+      'vote': 6,
       'comments':
         [{
-          'userName': 'Yordan Yordanov',
-          'content': 'I am not completly sure but Samsung maybe has some better products! Check them and give me your opinion!'
-        }],
-      'date': new Date('2016-03-01T09:00:00Z')
+          'content': 'I completly agree! It is one of the best phone I have ever seen!',
+          'submitter': id,
+          'date': new Date('2014-03-01T08:00:00Z')
+        }]
     }];
     Wish.insertMany(someData);
   } else {
     console.log("There is data!");
   }
 }
+
 export { connectDatabase, seedData };

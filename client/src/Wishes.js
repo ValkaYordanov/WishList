@@ -14,7 +14,6 @@ function Wishes(props) {
         type = decoded.user.type
     }
 
-    console.log(data)
 
 
 
