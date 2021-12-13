@@ -4,13 +4,13 @@
 // Use Ctrl+Space inside a snippet or a string literal to trigger completions.
 
 // Select the database to use.
-use('post-socialize');
+use('wish-list');
 db.users.drop()
 
 // Insert a few documents into the sales collection.
 db.users.insertMany([
-  {'username': 'valio', 'password': 'asd'},
-   {'username': 'reni', 'password': 'asd'},
-    {'username': 'maja', 'password': 'asd'},
+  {'username': 'valio', 'type': 'admin', 'password': 'asd'},
+   {'username': 'reni', 'type': 'visitor', 'password': 'asd'},
+    {'username': 'maja', 'type': 'visitor', 'password': 'asd'},
  ]);
 

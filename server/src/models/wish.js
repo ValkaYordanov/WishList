@@ -1,0 +1,30 @@
+import mongoose from "mongoose";
+
+const wishSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+  },
+  externalLink: {
+    type: String,
+  },
+  vote: Number,
+  comments: [{
+    content: { type: String, required: true },
+    submitter: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  }, { timestamps: true }],
+
+
+},
+  { timestamps: true });
+
+const Wish = mongoose.model("Wish", wishSchema);
+
+
+export default Wish;

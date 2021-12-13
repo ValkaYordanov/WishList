@@ -1,44 +1,51 @@
 import React from "react";
 import { Link } from "@reach/router";
-import AddPost from "./AddPost";
+import AddWish from "./AddWish";
+import jwt_decode from "jwt-decode";
 
 // Nothing special happens in this component, except for the Link
-function Posts(props) {
-    var { data, addPost } = props;
+function Wishes(props) {
+    var { data, addWish } = props;
 
 
-    function readMore(content) {
+    function checkUserType() {
+        var decoded = jwt_decode(localStorage.getItem("token"));
+        console.log(decoded)
+        if (decoded != null && decoded.user.type == "admin") {
+            return true;
+        } else {
+            return false;
+        }
 
-        return content.substring(0, 25);
     }
 
-    function getUser(id) {
-        const user = props.getUser(id);
-        return user;
-    }
+
 
     return (
 
 
         <>
             <br />
-            <AddPost addPost={addPost} />
+
+            <AddWish addWish={addWish} />
+
+
             <h1 style={{ textAlign: 'center' }}>List of all posts</h1>
             <div style={{ width: '300px', border: 'solid', margin: '0 auto', textAlign: 'center', padding: '1em' }}>
 
-                {data.map(post => <>
+                {data.map(wish => <>
 
                     <div>
                         <div>
-                            <Link to={`/Post/${post._id}`}>Post by {post.authorName} | {post.submitter.username}</Link>
+                            <Link to={`/Wish/${wish._id}`}> {wish.title}</Link>
                         </div>
                         <hr />
                         <div>
-                            {readMore(post.content)}...
+                            {wish.description}
                         </div>
                         <hr />
                         <div>
-                            Likes:{post.likes} &nbsp; &nbsp; Comments: {(post.comments).length}
+                            vote:{wish.vote} &nbsp; &nbsp; Comments: {(wish.comments).length}
                         </div>
                         <hr style={{ height: '2px', backgroundColor: 'blue' }} />
                     </div>
@@ -58,4 +65,4 @@ function Posts(props) {
     );
 }
 
-export default Posts;
+export default Wishes;

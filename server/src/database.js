@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
-import Post from "./models/post.js";
-import USer from "./models/user.js";
+import Wish from "./models/wish.js";
 
 async function connectDatabase() {
   const connectionString = process.env.MONGODB_URL;
@@ -18,9 +17,9 @@ async function connectDatabase() {
 }
 
 async function seedData() {
-  const numberOfPosts = await Post.countDocuments();
+  const numberOfWishes = await Wish.countDocuments();
 
-  if (numberOfPosts == 0) {
+  if (numberOfWishes == 0) {
     const someData = [{
       'content': 'The best phone in the world right now is the Samsung Galaxy S21 Ultra, but if that isn\'t for you we\'ve got 14 other top picks that may suit you, including the best iPhones and a variety of other Android phones. Our phone experts have spent years reviewing smartphones, and we\'ve tested all the best on the market to put together this definitive list of the very best smartphones you can buy in 2021.',
       'owner': ' Matt Swider ',
@@ -49,7 +48,7 @@ async function seedData() {
         }],
       'date': new Date('2016-03-01T09:00:00Z')
     }];
-    Post.insertMany(someData);
+    Wish.insertMany(someData);
   } else {
     console.log("There is data!");
   }

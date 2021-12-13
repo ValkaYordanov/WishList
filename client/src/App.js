@@ -2,9 +2,9 @@ import "./styles.css";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { Router } from "@reach/router";
-import Posts from "./Posts";
+import Wishes from "./Wishes";
 
-import Post from "./Post";
+import Wish from "./Wish";
 import apiService from "./apiService";
 
 import Login from "./Login";
@@ -14,16 +14,15 @@ import jwt_decode from "jwt-decode";
 
 const API_URL = process.env.REACT_APP_API;
 export default function App() {
-  const [posts, setPosts] = useState([]);
+  const [wishes, setWishes] = useState([]);
   const [users, setUsers] = useState([]);
 
 
   async function getData() {
-    // We now use `apiService.get()` instead of `fetch()`
     try {
-      const data = await apiService.get("/allPosts");
+      const data = await apiService.get("/allWishes");
       console.log(data)
-      setPosts(data);
+      setWishes(data);
       getUsersData();
     } catch (error) {
       console.error(error);
@@ -38,14 +37,13 @@ export default function App() {
       console.error(error);
     }
   }
-  // Getting data from API
+
   useEffect(() => {
     getData();
-    // getUsersData();
   }, []);
 
-  const getPost = (id) => {
-    return posts.find((post) => post._id === id);
+  const getWish = (id) => {
+    return wishes.find((wish) => wish._id === id);
   };
 
   const getUser = (id) => {
@@ -55,7 +53,6 @@ export default function App() {
   function logout() {
     try {
       apiService.logout();
-      // Fetch data again after logging in
       window.location.reload();
     } catch (error) {
       console.error("Logout", error);
@@ -63,170 +60,116 @@ export default function App() {
   }
 
 
-  function createUser(username, password) {
+  async function createUser(username, password) {
     try {
-      apiService.createUser(username, password);
-      // Fetch data again after logging in
-      // window.location.reload();
+      await apiService.createUser(username, password);
       login(username, password);
     } catch (error) {
       console.error("Logout", error);
     }
   }
 
-  // Login using API
   async function login(username, password) {
     try {
       await apiService.login(username, password);
-      // Fetch data again after logging in
       getData();
-      //getUsersData();
       window.location.reload();
     } catch (error) {
       console.error("Login", error);
     }
   }
-  async function addPost(content, owner, authorName, setErrorMessage) {
+  async function addWish(title, description, externalLink, setErrorMessage) {
 
-    if (content !== "" && authorName !== "" && content.length <= 500) {
+    if (title !== "") {
       setErrorMessage("")
       if (apiService.loggedIn()) {
-        //headers["Authorization"] = `Bearer ${localStorage.getToken()}`;
-        var decoded = jwt_decode(localStorage.getItem("token"));
+
       } else {
-        setErrorMessage("Yo have to login in orfer to post a post!")
+        setErrorMessage("You have to login in orfer to create a wish!")
         throw "You have to log in!"
       }
 
 
-      const newPost = {
-        //id: (Math.random() * 999).toString(),
-        content: content,
-        owner: owner,
-        authorName: authorName,
-        likes: 0,
+      const newWish = {
+        title: title,
+        description: description,
+        externalLink: externalLink,
+        vote: 0,
         comments: [],
-        date: Date.now(),
-        submitter: decoded.user._id
       };
 
-      console.log(newPost);
-      const resPost = await apiService.post(`/allPosts/create`,
-        // PUT instead of POST because we overwrite the whole bin with a new version
-        // https://jsonbin.io/api-reference/v3/bins/update
-        // method: "POST",
-        // headers: {
-        //   "Content-Type": "application/json",
-        // },
-        // Simple version where we overwrite the entire "database" store with a new list
-        newPost,
+      console.log(newWish);
+      const resWish = await apiService.post(`/allWishes/create`,
+        newWish,
       )
-      //   fetch(`${API_URL}/allPosts`)
-      //     .then((response) => response.json())
-      //     .then((data) => setPosts(data));
-      setPosts([...posts, resPost]);
+      setWishes([...wishes, resWish]);
       window.location.reload();
     }
     else {
-      setErrorMessage("The content and the Author Name are required! The content needs to be less than 500 characters!")
+      setErrorMessage("The title needs to be filled!")
     }
   }
 
-  async function addLike(postId) {
-    const post = posts.find((post) => post._id === postId);
-    var index = posts.findIndex((post) => post._id === postId);
-    console.log(post);
-    const updatedPost = await apiService.put(`/allPosts/addLike/${postId}`,
+  async function addVote(wishId) {
+    const wish = wishes.find((wish) => wish._id === wishId);
+    var index = wishes.findIndex((wish) => wish._id === wishId);
+    console.log(wish);
+    const updatedWish = await apiService.put(`/allWishes/addVote/${wishId}`,
 
-      { ...post, likes: post.likes + 1 },
+      { ...wish, vote: wish.vote + 1 },
     )
 
-    setPosts([...posts.slice(0, index), updatedPost, ...posts.slice(index + 1)]);
+    setWishes([...wishes.slice(0, index), updatedWish, ...wishes.slice(index + 1)]);
   }
 
 
-  async function deletePost(postId) {
+  async function deleteWish(wishId) {
 
-
-    const posts = await apiService.delete(`/allPosts/deletePost/${postId}`,
-
+    const wishes = await apiService.delete(`/allWishes/deleteWish/${wishId}`,
 
     )
     window.location.reload();
-    setPosts(posts);
+    setWishes(wishes);
   }
 
 
-  //   fetch(`${API_URL}/allPosts/addLike/${postId}`, {
-  //     // PUT instead of POST because we overwrite the whole bin with a new version
-  //     // https://jsonbin.io/api-reference/v3/bins/update
-  //     method: "PUT",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     // Simple version where we overwrite the entire "database" store with a new list
-  //     body: JSON.stringify({ ...post, likes: post.likes + 1 }),
-  //   })
-  //     .then((response) => response.json())
-  //     .then(data => setPosts([...posts.slice(0, index), data, ...posts.slice(index + 1)]));
-  // }
-
-  async function addComment(postId, comment, user, setErrorMessage) {
-    if (user !== "" && comment !== "" && comment.length >= 2) {
+  async function addComment(wishId, comment, setErrorMessage) {
+    if (comment !== "") {
       setErrorMessage("")
 
+      var decoded = jwt_decode(localStorage.getItem("token"));
+      var index = wishes.findIndex((wish) => wish._id === wishId);
 
-      const post = await posts.find((post) => post._id === postId);
-      var index = posts.findIndex((post) => post._id === postId);
-      //var newComment = { _id: (Math.random() * 999).toString(), userName, content };
-      const newComment = { userName: user, content: comment };
+      const newComment = { submitter: decoded.user, content: comment };
 
-      const data = await apiService.put(`/allPosts/addComment/${postId}`,
-
+      const data = await apiService.put(`/allWishes/addComment/${wishId}`,
         newComment,
       )
 
-      setPosts([...posts.slice(0, index), data, ...posts.slice(index + 1)]);
+      setWishes([...wishes.slice(0, index), data, ...wishes.slice(index + 1)]);
 
-      // fetch(`${API_URL}/allPosts/addComment/${postId}`, {
-      //   // PUT instead of POST because we overwrite the whole bin with a new version
-      //   // https://jsonbin.io/api-reference/v3/bins/update
-      //   method: "PUT",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   // Simple version where we overwrite the entire "database" store with a new list
-      //   //body: JSON.stringify({ ...post, comments: [...post.comments, newComment] }),
-      //   body: JSON.stringify(newComment)
-      // })
-      // fetch(`${API_URL}/allPosts`)
-      //   .then((response) => response.json())
-      //   .then((data) => setPosts(data));
-      // .then(response => response.json())
-      // .then(data => setPosts([...posts.slice(0, index), data, ...posts.slice(index + 1)]))
-      // .catch(error => console.error(error))
     }
     else {
-      setErrorMessage("The Content and the Author name are required! The content needs to be at least 2 characters!")
+      setErrorMessage("The comment needs to be filled!")
     }
   }
 
   let contents =
     <>
-      <p>No Posts!</p>
+      <p>No Wishs!</p>
       <Router>
-        <Post path="/Post/:id" getPost={getPost} addLike={addLike} addComment={addComment} getUser={getUser} deletePost={deletePost}></Post>
-        <Posts path="/" data={posts} addPost={addPost} getUser={getUser}></Posts>
+        <Wish path="/Wish/:id" getWish={getWish} addVote={addVote} addComment={addComment} getUser={getUser} deleteWish={deleteWish}></Wish>
+        <Wishes path="/" data={wishes} addWish={addWish} getUser={getUser}></Wishes>
 
 
       </Router>
     </>
     ;
-  if (posts.length > 0) {
+  if (wishes.length > 0) {
     contents = (
       <Router>
-        <Post path="/Post/:id" getPost={getPost} addLike={addLike} addComment={addComment} getUser={getUser} deletePost={deletePost} ></Post>
-        <Posts path="/" data={posts} addPost={addPost} getUser={getUser} ></Posts>
+        <Wish path="/Wish/:id" getWish={getWish} addVote={addVote} addComment={addComment} getUser={getUser} deleteWish={deleteWish}></Wish>
+        <Wishes path="/" data={wishes} addWish={addWish} getUser={getUser}></Wishes>
 
 
       </Router>

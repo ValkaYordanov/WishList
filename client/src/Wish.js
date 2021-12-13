@@ -3,13 +3,13 @@ import { Link } from "@reach/router";
 import { useState } from "react";
 import "./styles.css";
 // Nothing special happens in this component, except for the Link
-function Post(props) {
+function Wish(props) {
 
 
-    const post = props.getPost(props.id); // "props.id" contains the id in "/recipe/:id"
+    const wish = props.getWish(props.id); // "props.id" contains the id in "/recipe/:id"
 
-    const { addLike } = props;
-    const { deletePost } = props;
+    const { addVote } = props;
+    const { deleteWish } = props;
     const { addComment } = props;
     const [comment, setComment] = useState("");
     const [user, setUser] = useState("");
@@ -24,11 +24,9 @@ function Post(props) {
 
     }
 
-    console.log(post);
-    if (!post) {
+    if (!wish) {
         return <p>Loading...</p>
     }
-    //console.log(post);
     return (
 
         <div className="background-orange" >
@@ -36,34 +34,26 @@ function Post(props) {
             <div style={{ border: 'solid', background: 'yellow', margin: '0 auto', width: '80%', padding: '1em' }}>
                 <div style={{ textAlign: 'center', margin: '0 auto' }}>
                     <font size="+1"><strong>Date:</strong></font>&nbsp;&nbsp;
-                    {new Intl.DateTimeFormat('en-GB', {
-                        month: 'long',
-                        day: '2-digit',
-                        year: 'numeric',
-                    }).format(new Date(post.date))}
-                    <Link to="/"><button type="button" onClick={(event) => { deletePost(post._id); }}>Delete</button></Link>
+                    {wish.createdAt}
+                    <Link to="/"><button type="button" onClick={(event) => { deleteWish(wish._id); }}>Delete</button></Link>
                 </div>
                 <hr />
                 <div style={{ textAlign: 'center', margin: '0 auto' }} className="wrapContentPost" >
-                    {post.content}
+                    {wish.description}
                 </div>
                 <hr />
                 <div style={{ textAlign: 'center', margin: '0 auto' }} className="wrapContentPost" >
-                    <font size="+1"><strong>Owner of the quote:</strong></font>&nbsp;&nbsp; {post.owner} |{post.submitter.username}|
+                    <font size="+1"><strong>External Link:</strong></font>&nbsp;&nbsp; {wish.externalLink}
                 </div>
                 <hr />
                 <div style={{ textAlign: 'center', margin: '0 auto' }} className="wrapContentPost" >
-                    <font size="+1"><strong>Author Name: </strong></font>&nbsp;&nbsp; {post.authorName}
-                </div>
-                <hr />
-                <div style={{ textAlign: 'center', margin: '0 auto' }} className="wrapContentPost" >
-                    <font size="+1"><strong>Likes:</strong></font>&nbsp;&nbsp;{post.likes}
+                    <font size="+1"><strong>Vote:</strong></font>&nbsp;&nbsp;{wish.vote}
                     &nbsp;
                     <button type="button" onClick={(event) => {
-                        addLike(post._id);
+                        addVote(wish._id);
                     }}>Like</button>
                     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                    <font size="+1"><strong>Comments:</strong></font>&nbsp;&nbsp; {(post.comments).length}
+                    <font size="+1"><strong>Comments:</strong></font>&nbsp;&nbsp; {(wish.comments).length}
                 </div>
             </div>
             <br />
@@ -80,7 +70,7 @@ function Post(props) {
 
                     <button style={{ margin: '0 auto' }} type="button" onClick={(event) => {
                         console.log(comment, user)
-                        addComment(post._id, comment, user, setErrorMessage);
+                        addComment(wish._id, comment, setErrorMessage);
                         clearInput();
                         document.getElementById('commentId').value = null;
                         document.getElementById('authorNameId').value = null;
@@ -91,9 +81,9 @@ function Post(props) {
                     <h1>All Comments</h1>
                     <hr style={{ height: '2px', backgroundColor: 'blue' }} />
                     <div style={{}}>
-                        {(post.comments).map(comment =>
+                        {(wish.comments).map(comment =>
                             <>
-                                <h3 style={{ textAlign: 'left', height: '5px' }}>{comment.userName}</h3>
+                                <h3 style={{ textAlign: 'left', height: '5px' }}>{comment.user.username}</h3>
                                 <p className="wrapContent"> {comment.content}</p>
                                 <hr />
                             </>
@@ -112,4 +102,4 @@ function Post(props) {
     );
 }
 
-export default Post;
+export default Wish;
