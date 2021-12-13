@@ -7,7 +7,7 @@ wishRoutes.get("/", async (req, res) => {
   const posts = await Wish.find().populate({
     path: 'comments.submitter',
     model: 'User'
-  })
+  }).exec()
   res.json(posts);
 });
 
