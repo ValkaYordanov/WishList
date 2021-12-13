@@ -18,7 +18,8 @@ const wishSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
-  }, { timestamps: true }],
+    date: Date
+  }],
 
 
 },

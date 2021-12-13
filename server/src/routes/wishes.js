@@ -42,23 +42,6 @@ wishRoutes.delete("/deleteWish/:id", async (req, res) => {
   }
 });
 
-// postRoutes.route('/addLike/:id').put((req, res, next) => {
-//   try{
-//     const post = await Post.findByIdAndUpdate(req.body.id);
-//     $set:req.body
-//   }
-//   post.findByIdAndUpdate(req.params.id, {
-//     $set: req.body
-//   }, (error, data) => {
-//     if (error) {
-//       return next(error);
-//       console.log(error)
-//     } else {
-//       res.json(data)
-//       console.log('Student updated successfully !')
-//     }
-//   })
-// })
 
 wishRoutes.put('/addVote/:id', async (req, res) => {
   try {

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { Router } from "@reach/router";
 import Wishes from "./Wishes";
-
+import { Link } from "@reach/router";
 import AddWish from "./AddWish";
 import Wish from "./Wish";
 import apiService from "./apiService";
@@ -120,6 +120,8 @@ export default function App() {
     )
 
     setWishes([...wishes.slice(0, index), updatedWish, ...wishes.slice(index + 1)]);
+    getData()
+
   }
 
 
@@ -142,7 +144,7 @@ export default function App() {
 
       var index = wishes.findIndex((wish) => wish._id === wishId);
 
-      const newComment = { submitter: decoded.user, content: comment };
+      const newComment = { submitter: decoded.user, content: comment, date: Date.now() };
 
       const data = await apiService.put(`/allWishes/addComment/${wishId}`,
         newComment,
@@ -207,8 +209,13 @@ export default function App() {
       </div>;
     }
   }
+
+
+
   return (
     <>
+
+
 
       {regPart}
       {loginPart}

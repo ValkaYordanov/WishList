@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "@reach/router";
 import { useState } from "react";
 import "./styles.css";
+import jwt_decode from "jwt-decode";
+
 // Nothing special happens in this component, except for the Link
 function Wish(props) {
 
@@ -13,9 +15,14 @@ function Wish(props) {
     const { addComment } = props;
     const [comment, setComment] = useState("");
     const [user, setUser] = useState("");
-    // const userr = props.getUser(post.submitter);
-    // console.log(post.sumbitter);
-    // console.log(post.submitter);
+
+    var type = "none"
+    const jwtToken = localStorage.getItem("token");
+
+    if (jwtToken) {
+        var decoded = jwt_decode(jwtToken);
+        type = decoded.user.type
+    }
     const [errorMessage, setErrorMessage] = useState("");
 
     function clearInput() {
@@ -23,7 +30,7 @@ function Wish(props) {
         setUser("");
 
     }
-
+    console.log(wish)
     if (!wish) {
         return <p>Loading...</p>
     }
@@ -32,38 +39,43 @@ function Wish(props) {
         <div className="background-orange" >
 
             <div style={{ border: 'solid', background: 'yellow', margin: '0 auto', width: '80%', padding: '1em' }}>
+                <div style={{ textAlign: 'center', margin: '0 auto' }} className="wrapContentPost" >
+                    <strong> Title:</strong> {wish.title}
+                </div>
+                <hr />
                 <div style={{ textAlign: 'center', margin: '0 auto' }}>
-                    <font size="+1"><strong>Date:</strong></font>&nbsp;&nbsp;
+                    <span size="+1"><strong>Date:</strong></span>&nbsp;&nbsp;
                     {new Intl.DateTimeFormat('en-GB', {
                         year: "numeric",
                         month: "long",
                         day: "2-digit"
                     }).format(new Date(wish.createdAt))}
+                    {type == 'admin' ? <><Link to="/"><button type="button" onClick={(event) => { deleteWish(wish._id); }}>Delete</button></Link></> : null}
 
-                    <Link to="/"><button type="button" onClick={(event) => { deleteWish(wish._id); }}>Delete</button></Link>
                 </div>
                 <hr />
                 <div style={{ textAlign: 'center', margin: '0 auto' }} className="wrapContentPost" >
-                    {wish.description}
+                    <strong> Description:</strong> {wish.description}
                 </div>
                 <hr />
                 <div style={{ textAlign: 'center', margin: '0 auto' }} className="wrapContentPost" >
-                    <font size="+1"><strong>External Link:</strong></font>&nbsp;&nbsp; {wish.externalLink}
+                    <span size="+1"><strong>External Link:</strong></span>&nbsp;&nbsp; {wish.externalLink}
                 </div>
                 <hr />
                 <div style={{ textAlign: 'center', margin: '0 auto' }} className="wrapContentPost" >
-                    <font size="+1"><strong>Vote:</strong></font>&nbsp;&nbsp;{wish.vote}
-                    &nbsp;
-                    <button type="button" onClick={(event) => {
-                        addVote(wish._id);
-                    }}>Like</button>
-                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                    <font size="+1"><strong>Comments:</strong></font>&nbsp;&nbsp; {(wish.comments).length}
+                    {type == 'admin' ? <> <span size="+1"><strong>Vote:</strong></span>&nbsp;&nbsp;{wish.vote}
+                        &nbsp;
+                        <button type="button" onClick={(event) => {
+                            addVote(wish._id);
+                        }}>+</button>
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</> : null}
+
+                    <span size="+1"><strong>Comments:</strong></span>&nbsp;&nbsp; {(wish.comments).length}
                 </div>
             </div>
             <br />
             <div style={{ border: 'solid', width: '50%', margin: '0 auto', alignContent: 'center', padding: '1em' }}>
-                <div>
+                {type == 'admin' ? <>  <div>
                     {errorMessage && (<p>{errorMessage}</p>)}
                     <p style={{ margin: '0 auto' }}>Content:</p>
                     <textarea id="commentId" style={{ margin: '0 auto', width: '400px', height: '80px' }} onChange={(event) => setComment(event.target.value)} type="text" />
@@ -75,15 +87,33 @@ function Wish(props) {
                         document.getElementById('commentId').value = null;
 
                     }}>Add Comment</button>
-                </div>
+                </div></> : type == 'visitor' ? <>  <div>
+                    {errorMessage && (<p>{errorMessage}</p>)}
+                    <p style={{ margin: '0 auto' }}>Content:</p>
+                    <textarea id="commentId" style={{ margin: '0 auto', width: '400px', height: '80px' }} onChange={(event) => setComment(event.target.value)} type="text" />
+                    <div style={{ margin: '0 auto' }} id="CommentId" />
+                    <button style={{ margin: '0 auto' }} type="button" onClick={(event) => {
+                        console.log(comment, user)
+                        addComment(wish._id, comment, setErrorMessage);
+                        clearInput();
+                        document.getElementById('commentId').value = null;
+
+                    }}>Add Comment</button>
+                </div></> : null}
+
                 <hr style={{ height: '2px', backgroundColor: 'blue' }} />
                 <div style={{ textAlign: 'center' }} >
                     <h1>All Comments</h1>
                     <hr style={{ height: '2px', backgroundColor: 'blue' }} />
                     <div style={{}}>
                         {(wish.comments).map(comment =>
+
                             <>
-                                <h3 style={{ textAlign: 'left', height: '5px' }}>{comment.submitter.username}</h3>
+                                <strong style={{ textAlign: 'left', height: '5px' }}>{comment.submitter.username} </strong>{new Intl.DateTimeFormat('en-GB', {
+                                    month: 'long',
+                                    day: '2-digit',
+                                    year: 'numeric',
+                                }).format(new Date(comment.date))}
                                 <p className="wrapContent"> {comment.content}</p>
                                 <hr />
                             </>

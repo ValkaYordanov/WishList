@@ -4,7 +4,7 @@ import jwt_decode from "jwt-decode";
 
 // Nothing special happens in this component, except for the Link
 function Wishes(props) {
-    var { data, addWish } = props;
+    var { data } = props;
 
     var type = "visitor"
     const jwtToken = localStorage.getItem("token");
@@ -14,7 +14,7 @@ function Wishes(props) {
         type = decoded.user.type
     }
 
-
+    console.log(data)
 
 
 
@@ -27,16 +27,24 @@ function Wishes(props) {
 
                     <div>
                         <div>
-                            <Link to={`/Wish/${wish._id}`}> {wish.title}</Link>
+                            Title: <Link to={`/Wish/${wish._id}`}> {wish.title}</Link>
                         </div>
                         <hr />
                         <div>
-                            {wish.description}
+                            Description: <strong>{wish.description}</strong>
                         </div>
                         <hr />
                         <div>
-                            {type == 'admin' ? <>vote:{wish.vote}</> : null}
-                            &nbsp; &nbsp; Comments: {(wish.comments).length}
+                            {type == 'admin' ? <><strong>vote:{wish.vote}</strong></> : null}
+                            &nbsp; &nbsp; Comments: <strong>{(wish.comments).length}</strong>
+                        </div>
+                        <hr />
+                        <div>
+                            Creation date:  <strong>{new Intl.DateTimeFormat('en-GB', {
+                                year: "numeric",
+                                month: "long",
+                                day: "2-digit"
+                            }).format(new Date(wish.createdAt))}</strong>
                         </div>
                         <hr style={{ height: '2px', backgroundColor: 'blue' }} />
                     </div>
