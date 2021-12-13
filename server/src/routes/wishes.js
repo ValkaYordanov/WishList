@@ -4,7 +4,7 @@ import Wish from "../models/wish.js";
 const wishRoutes = express.Router();
 
 wishRoutes.get("/", async (req, res) => {
-  const posts = await Wish.find().populate({
+  const posts = await Wish.find().sort({ createdAt: 'desc' }).populate({
     path: 'comments.submitter',
     model: 'User'
   }).exec()

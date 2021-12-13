@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { Router } from "@reach/router";
 import Wishes from "./Wishes";
 
+import AddWish from "./AddWish";
 import Wish from "./Wish";
 import apiService from "./apiService";
 
@@ -170,6 +171,8 @@ export default function App() {
   if (wishes.length > 0) {
     contents = (
       <Router>
+        <AddWish path="/addWish" addWish={addWish} />
+
         <Wish path="/Wish/:id" getWish={getWish} addVote={addVote} addComment={addComment} getUser={getUser} deleteWish={deleteWish}></Wish>
         <Wishes path="/" data={wishes} addWish={addWish} getUser={getUser}></Wishes>
 
@@ -187,18 +190,30 @@ export default function App() {
 
   let loginPart = <Login login={login}></Login>;
   if (apiService.loggedIn()) {
+    var decoded = jwt_decode(localStorage.getItem("token"));
+    console.log(decoded.user.type)
+    if (decoded.user.type == "admin") {
+      loginPart = <div>
 
+        <Logout logout={logout}></Logout>
 
-    loginPart = <div>
+        <AddWish addWish={addWish} />
+      </div>;
+    } else {
+      loginPart = <div>
 
-      <Logout logout={logout}></Logout></div>;
+        <Logout logout={logout}></Logout>
 
+      </div>;
+    }
   }
   return (
     <>
+
       {regPart}
       {loginPart}
       {contents}
+
 
 
     </>
