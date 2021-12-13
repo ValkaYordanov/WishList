@@ -20,7 +20,7 @@ export default function App() {
 
   async function getData() {
     try {
-      const data = await apiService.get("/allWishes");
+      const data = await apiService.getWishes();
       console.log(data)
       setWishes(data);
       getUsersData();

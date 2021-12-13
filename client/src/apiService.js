@@ -25,7 +25,10 @@ class ApiService {
         const response = await this.get("/users/users");
         return response
     }
-
+    async getWishes() {
+        const response = await this.get("/allWishes");
+        return response
+    }
     async login(username, password) {
         console.log(username, password)
         const response = await this.post("/users/authenticate", {
