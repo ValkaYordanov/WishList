@@ -19,7 +19,7 @@ function createServer() {
   app.use(express.json());
 
 
-
+  app.use(express.static(path.resolve("..", "client", "build")));
   const openPaths = [
     { url: "/api/users/authenticate", methods: ["POST"] },
 
@@ -46,7 +46,7 @@ function createServer() {
 
   const usersRouter = createUsersRouter(secret);
 
-  app.use(express.static(path.resolve("..", "client", "build")));
+
 
   app.use("/api/users", usersRouter);
   app.use("/api/allWishes", postRoutes);
