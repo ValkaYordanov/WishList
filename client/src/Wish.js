@@ -34,7 +34,12 @@ function Wish(props) {
             <div style={{ border: 'solid', background: 'yellow', margin: '0 auto', width: '80%', padding: '1em' }}>
                 <div style={{ textAlign: 'center', margin: '0 auto' }}>
                     <font size="+1"><strong>Date:</strong></font>&nbsp;&nbsp;
-                    {wish.createdAt}
+                    {new Intl.DateTimeFormat('en-GB', {
+                        year: "numeric",
+                        month: "long",
+                        day: "2-digit"
+                    }).format(new Date(wish.createdAt))}
+
                     <Link to="/"><button type="button" onClick={(event) => { deleteWish(wish._id); }}>Delete</button></Link>
                 </div>
                 <hr />
@@ -63,17 +68,12 @@ function Wish(props) {
                     <p style={{ margin: '0 auto' }}>Content:</p>
                     <textarea id="commentId" style={{ margin: '0 auto', width: '400px', height: '80px' }} onChange={(event) => setComment(event.target.value)} type="text" />
                     <div style={{ margin: '0 auto' }} id="CommentId" />
-
-                    <p style={{ margin: '0 auto' }}>Author name:</p>
-                    <input id="authorNameId" style={{ margin: '0 auto', width: '250px' }} onChange={(event) => setUser(event.target.value)} type="text" />
-                    <div style={{ margin: '0 auto' }} id="UserId" />
-
                     <button style={{ margin: '0 auto' }} type="button" onClick={(event) => {
                         console.log(comment, user)
                         addComment(wish._id, comment, setErrorMessage);
                         clearInput();
                         document.getElementById('commentId').value = null;
-                        document.getElementById('authorNameId').value = null;
+
                     }}>Add Comment</button>
                 </div>
                 <hr style={{ height: '2px', backgroundColor: 'blue' }} />
@@ -83,7 +83,7 @@ function Wish(props) {
                     <div style={{}}>
                         {(wish.comments).map(comment =>
                             <>
-                                <h3 style={{ textAlign: 'left', height: '5px' }}>{comment.user.username}</h3>
+                                <h3 style={{ textAlign: 'left', height: '5px' }}>{comment.submitter.username}</h3>
                                 <p className="wrapContent"> {comment.content}</p>
                                 <hr />
                             </>

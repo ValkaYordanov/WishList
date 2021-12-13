@@ -21,7 +21,7 @@ export default function App() {
   async function getData() {
     try {
       const data = await apiService.getWishes();
-      console.log(data)
+
       setWishes(data);
       getUsersData();
     } catch (error) {
@@ -113,7 +113,6 @@ export default function App() {
   async function addVote(wishId) {
     const wish = wishes.find((wish) => wish._id === wishId);
     var index = wishes.findIndex((wish) => wish._id === wishId);
-    console.log(wish);
     const updatedWish = await apiService.put(`/allWishes/addVote/${wishId}`,
 
       { ...wish, vote: wish.vote + 1 },
@@ -134,10 +133,12 @@ export default function App() {
 
 
   async function addComment(wishId, comment, setErrorMessage) {
-    if (comment !== "") {
+    if (comment !== "" && apiService.loggedIn()) {
       setErrorMessage("")
 
+
       var decoded = jwt_decode(localStorage.getItem("token"));
+
       var index = wishes.findIndex((wish) => wish._id === wishId);
 
       const newComment = { submitter: decoded.user, content: comment };
@@ -147,10 +148,11 @@ export default function App() {
       )
 
       setWishes([...wishes.slice(0, index), data, ...wishes.slice(index + 1)]);
+      getData()
 
     }
     else {
-      setErrorMessage("The comment needs to be filled!")
+      setErrorMessage("The comment needs to be filled and you have to be logged in!")
     }
   }
 

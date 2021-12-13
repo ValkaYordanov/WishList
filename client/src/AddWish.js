@@ -7,18 +7,19 @@ A component that can add new numbers to a sum. The component renders the followi
 - A button (HTML button element). When clicking the button, the component should add the number in the text field to the sum that is displayed.
 */
 
-function AddPost(props) {
+function AddWish(props) {
 
-    const [content, setContent] = useState("");
-    const [owner, setOwner] = useState("")
-    const [authorName, setAuthorName] = useState("");
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [externalLink, setExternalLink] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
-    const { addPost } = props;
+    const { addWish } = props;
 
     function clearInput() {
-        setContent("");
-        setOwner("");
-        setAuthorName("");
+        setTitle("");
+        setDescription("");
+        setExternalLink("");
+
 
 
     }
@@ -28,32 +29,30 @@ function AddPost(props) {
             <div style={{ border: 'solid', width: '500px', margin: '0 auto', textAlign: 'center', padding: '1em' }}>
                 {errorMessage && (<p>{errorMessage}</p>)}
                 <div>
-                    <p>Content:</p>
-                    <textarea maxLength='500' style={{ margin: '0 auto', width: '300px', height: '50px' }} id="contentID" onChange={(event) => setContent(event.target.value)} type="text" />
+                    <p>Title:</p>
+                    <textarea maxLength='500' style={{ margin: '0 auto', width: '300px', height: '50px' }} id="contentID" onChange={(event) => setTitle(event.target.value)} type="text" />
+                    <div id="TitleId" />
+                </div>
+                <hr />
+                <div>
+                    <p>Description:</p>
+                    <textarea maxLength='500' style={{ margin: '0 auto', width: '300px', height: '50px' }} id="contentID" onChange={(event) => setDescription(event.target.value)} type="text" />
                     <div id="ContentId" />
                 </div>
                 <hr />
                 <div>
-                    <p>Owner:</p>
-                    <input id="ownerID" onChange={(event) => setOwner(event.target.value)} type="text" />
-                    <div id="OwnerId" />
-                </div>
-                <hr />
-                <div>
-                    <p>Author name:</p>
-                    <input id="usernameID" onChange={(event) => setAuthorName(event.target.value)} type="text" />
+                    <p>External Link:</p>
+                    <input id="usernameID" onChange={(event) => setExternalLink(event.target.value)} type="text" />
                     <div id="AuthorNameId" />
                 </div>
                 <hr />
                 <div >
                     <button style={{ backgroundColor: 'green', height: '25px' }} type="button" onClick={(event) => {
 
-                        addPost(content, owner, authorName, setErrorMessage);
+                        addWish(title, description, externalLink, setErrorMessage);
                         clearInput();
-                        document.getElementById('contentID').value = null;
-                        document.getElementById('ownerID').value = null;
-                        document.getElementById('usernameID').value = null;
-                    }}>Add Post </button>
+
+                    }}>Add Wish </button>
                 </div>
 
 
@@ -66,4 +65,4 @@ function AddPost(props) {
     );
 }
 
-export default AddPost;
+export default AddWish;
