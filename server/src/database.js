@@ -60,7 +60,6 @@ async function seedData() {
   if (numberOfWishes == 0) {
 
     var user = await User.findOne({ username: 'val' })
-    console.log(user)
     var id = user.id
     const someData = [{
       'title': 'The best phone in the world right now is the Samsung Galaxy S21 Ultra, but if that isn\'t for you we\'ve got 14 other top picks that may suit you, including the best iPhones and a variety of other Android phones. Our phone experts have spent years reviewing smartphones, and we\'ve tested all the best on the market to put together this definitive list of the very best smartphones you can buy in 2021.',

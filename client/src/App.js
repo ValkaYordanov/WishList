@@ -217,7 +217,7 @@ export default function App() {
 
       <Link to={`/addWish`}> add</Link>
       <br></br>
-      <Link to={`/reg`}> reg</Link>
+      <Link to={`/users/Registration`}> reg</Link>
       {regPart}
       {loginPart}
       {contents}
