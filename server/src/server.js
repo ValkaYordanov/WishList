@@ -46,11 +46,12 @@ function createServer() {
 
   const usersRouter = createUsersRouter(secret);
 
+  app.use(express.static(path.resolve("..", "client", "build")));
 
   app.use("/api/users", usersRouter);
   app.use("/api/allWishes", postRoutes);
 
-  app.use(express.static(path.resolve("..", "client", "build")));
+
 
   app.get("*", (req, res) =>
     res.sendFile(path.resolve("..", "client", "build", "index.html"))
