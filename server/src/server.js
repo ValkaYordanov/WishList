@@ -18,11 +18,6 @@ function createServer() {
 
   app.use(express.json());
 
-  app.use(express.static(path.resolve("..", "client", "build")));
-
-  app.get("*", (req, res) =>
-    res.sendFile(path.resolve("..", "client", "build", "index.html"))
-  );
 
 
   const openPaths = [
@@ -55,6 +50,11 @@ function createServer() {
   app.use("/api/users", usersRouter);
   app.use("/api/allWishes", postRoutes);
 
+  app.use(express.static(path.resolve("..", "client", "build")));
+
+  app.get("*", (req, res) =>
+    res.sendFile(path.resolve("..", "client", "build", "index.html"))
+  );
 
   return app;
 }
