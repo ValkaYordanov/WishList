@@ -1,0 +1,21 @@
+// MongoDB Playground
+// To disable this template go to Settings | MongoDB | Use Default Template For Playground.
+// Make sure you are connected to enable completions and to be able to run a playground.
+// Use Ctrl+Space inside a snippet or a string literal to trigger completions.
+
+// Select the database to use.
+use('post-socialize');
+db.posts.drop()
+
+// Insert a few documents into the sales collection.
+db.posts.insertMany([
+  {'content': 'description1', 'owner':'Esperaldo', 'authorName': 'Valentin', 'likes': 10, 'comments': [{'userName':'reni', 'content':'how are you'},{'userName':'reni', 'content':'how are you'}], 'date': new Date('2014-03-01T08:00:00Z') },
+  {'content': 'description1', 'owner':'Esperaldo', 'authorName': 'Valentin', 'likes': 20, 'comments': [{'userName':'reni', 'content':'how are you'},{'userName':'reni', 'content':'how are you'}], 'date': new Date('2014-03-01T09:00:00Z') },
+  {'content': 'description1', 'owner':'Esperaldo', 'authorName': 'Valentin', 'likes': 5, 'comments': [{'userName':'reni', 'content':'how are you'},{'userName':'reni', 'content':'how are you'}], 'date': new Date('2014-03-15T09:00:00Z') },
+  {'content': 'description1', 'owner':'Esperaldo', 'authorName': 'Valentin', 'likes': 5, 'comments': [{'userName':'reni', 'content':'how are you'},{'userName':'maja', 'content':'how are you'}], 'date': new Date('2014-04-04T11:21:39.736Z') },
+  {'content': 'description1', 'owner':'Esperaldo', 'authorName': 'Valentin', 'likes': 10, 'comments': [{'userName':'maja', 'content':'how are you'},{'userName':'maja', 'content':'how are you'}], 'date': new Date('2014-04-04T21:23:13.331Z') },
+  {'content': 'description1', 'owner':'Esperaldo', 'authorName': 'Valentin', 'likes': 7, 'comments': [{'userName':'maja', 'content':'how are you'},{'userName':'gery', 'content':'how are you'}], 'date': new Date('2015-06-04T05:08:13Z') },
+  {'content': 'description1', 'owner':'Esperaldo', 'authorName': 'Valentin', 'likes': 7, 'comments': [{'userName':'gery', 'content':'how are you'},{'userName':'gery', 'content':'how are you'}], 'date': new Date('2015-09-10T08:43:00Z') },
+  {'content': 'description1', 'owner':'Esperaldo', 'authorName': 'Valentin', 'likes': 10, 'comments': [{'userName':'gery', 'content':'how are you'},{'userName':'gery', 'content':'how are you'}], 'date': new Date('2016-02-06T20:20:13Z') },
+]);
+

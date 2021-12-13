@@ -1,0 +1,21 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+table, th, td {
+  border:1px solid black;
+  width: 20%;
+}
+
+.wrapContent{
+  margin: 0 auto;
+  text-align: left;
+  width: 90%;
+  word-wrap: break-word;
+}
+
+.wrapContentPost{
+  text-align: right;
+  width: 90%;
+  word-wrap: break-word;
+}
