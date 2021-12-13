@@ -8,8 +8,9 @@ import cors from "cors";
 import checkJwt from "express-jwt"; // Validates access tokens automatically
 
 /* Local files */
-import postRoutes from "./routes/wishes.js";
+
 import { createUsersRouter } from "./routes/users.js";
+import wishRoutes from "./routes/wishes.js";
 
 function createServer() {
   const app = express();
@@ -53,7 +54,7 @@ function createServer() {
 
 
   app.use("/api/users", usersRouter);
-  app.use("/api/allWishes", postRoutes);
+  app.use("/api/allWishes", wishRoutes);
 
 
   return app;
