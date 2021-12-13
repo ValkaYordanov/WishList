@@ -72,7 +72,7 @@ export default function App() {
   async function login(username, password) {
     try {
       await apiService.login(username, password);
-      // getData();
+      getData();
       window.location.reload();
     } catch (error) {
       console.error("Login", error);
