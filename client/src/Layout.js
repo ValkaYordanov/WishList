@@ -46,7 +46,7 @@ export default props => (
 
             {!userIsLogged ? <> <Link to="registration">Registration</Link>&nbsp;&nbsp;</> : null}
 
-            {type == 'admin' ? <> <Link to="addWish">AddWish</Link>&nbsp;&nbsp;</> : null}
+            {type == 'admin' ? <> <Link to="addWish">Add Wish</Link>&nbsp;&nbsp;</> : null}
             <hr />
             {props.children}
 
