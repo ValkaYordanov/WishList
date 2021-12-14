@@ -36,22 +36,17 @@ function Wishes(props) {
                             <div style={{ textAlign: 'center' }}>
                                 <a href={wish.externalLink}><strong>{wish.externalLink}</strong></a>
                             </div>
-                            <hr />
-                            <div style={{ textAlign: 'center' }}>
-                                {type == 'admin' ? <><strong>Vote: {wish.vote}</strong></> : null} &nbsp; &nbsp; &nbsp; &nbsp;
-                                <strong>Comments: {(wish.comments).length}</strong>
-
-                            </div>
-
 
 
                         </div>
-                        <div style={{ marginTop: '4%', textAlign: 'right', width: '60%', margin: 'auto' }}>
-                            Creation date:  <strong>{new Intl.DateTimeFormat('en-GB', {
+                        <div style={{ marginTop: '4%', width: '60%', margin: 'auto' }}>
+                            <span style={{ float: 'right' }}>Creation date:  <strong>{new Intl.DateTimeFormat('en-GB', {
                                 year: "numeric",
                                 month: "long",
                                 day: "2-digit"
-                            }).format(new Date(wish.createdAt))}</strong>
+                            }).format(new Date(wish.createdAt))}</strong></span>
+                            <span style={{ float: 'left' }}>{type == 'admin' ? <><strong>Vote: {wish.vote}</strong></> : null} &nbsp; &nbsp; &nbsp; &nbsp;
+                                <strong>Comments: {(wish.comments).length}</strong></span>
                         </div>
                     </div>
                 </>

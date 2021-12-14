@@ -39,7 +39,7 @@ function Wish(props) {
 
         <div className="background-orange" >
 
-            <div style={{ border: 'solid', background: 'yellow', margin: '0 auto', width: '80%', padding: '1em' }}>
+            <div style={{ border: 'solid', background: 'pink', margin: '0 auto', width: '80%', padding: '1em' }}>
                 <div style={{ textAlign: 'center', margin: '0 auto' }} className="wrapContentPost" >
                     <strong> Title:</strong> {wish.title}
                 </div>
