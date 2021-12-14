@@ -20,32 +20,39 @@ function Wishes(props) {
     return (
         <>
             <h1 style={{ textAlign: 'center' }}>List of all Wishes</h1>
-            <div style={{ width: '300px', border: 'solid', margin: '0 auto', textAlign: 'center', padding: '1em' }}>
 
+            <div>
                 {data.map(wish => <>
-
                     <div>
-                        <div>
-                            Title: <Link to={`/Wish/${wish._id}`}> {wish.title}</Link>
+                        <div style={{ marginTop: '4%', textAlign: 'center' }}>
+                            <span class="title" ><Link to={`/Wish/${wish._id}`}> {wish.title}</Link></span>
                         </div>
-                        <hr />
-                        <div>
-                            Description: <strong>{wish.description}</strong>
+                        <div class="wishContainer">
+
+                            <div >
+                                <strong>{wish.description}</strong>
+                            </div>
+                            <hr />
+                            <div style={{ textAlign: 'center' }}>
+                                <a href={wish.externalLink}><strong>{wish.externalLink}</strong></a>
+                            </div>
+                            <hr />
+                            <div style={{ textAlign: 'center' }}>
+                                {type == 'admin' ? <><strong>Vote: {wish.vote}</strong></> : null} &nbsp; &nbsp; &nbsp; &nbsp;
+                                <strong>Comments: {(wish.comments).length}</strong>
+
+                            </div>
+
+
+
                         </div>
-                        <hr />
-                        <div>
-                            {type == 'admin' ? <><strong>vote:{wish.vote}</strong></> : null}
-                            &nbsp; &nbsp; Comments: <strong>{(wish.comments).length}</strong>
-                        </div>
-                        <hr />
-                        <div>
+                        <div style={{ marginTop: '4%', textAlign: 'right', width: '60%', margin: 'auto' }}>
                             Creation date:  <strong>{new Intl.DateTimeFormat('en-GB', {
                                 year: "numeric",
                                 month: "long",
                                 day: "2-digit"
                             }).format(new Date(wish.createdAt))}</strong>
                         </div>
-                        <hr style={{ height: '2px', backgroundColor: 'blue' }} />
                     </div>
                 </>
 

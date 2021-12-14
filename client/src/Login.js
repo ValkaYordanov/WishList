@@ -13,6 +13,7 @@ function Login(props) {
 
     function onSubmit() {
         login(username, password, setErrorMessage);
+        navigate('/');
     }
 
     function logout() {
@@ -52,7 +53,7 @@ function Login(props) {
     if (apiService.loggedIn()) {
         var decoded = jwt_decode(localStorage.getItem("token"));
         loginPart = <div>
-            <p>You are logged in as a {decoded.user.username}</p>
+            <p>You are logged in as {decoded.user.username}</p>
             <Logout logout={logout}></Logout>
 
         </div>;

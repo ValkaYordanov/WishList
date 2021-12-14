@@ -24,6 +24,7 @@ function Registration(props) {
             try {
                 await apiService.createUser(username, password);
                 login(username, password, setErrorMessage);
+                navigate('/');
             } catch (error) {
                 console.error("Logout", error);
             }
@@ -67,16 +68,9 @@ function Registration(props) {
     if (apiService.loggedIn()) {
         var decoded = jwt_decode(localStorage.getItem("token"));
         console.log(decoded)
-        // if (decoded.user.type == "admin") {
-        //     loginPart = <div>
 
-        //         <Logout logout={logout}></Logout>
-
-        //         <AddWish addWish={addWish} />
-        //     </div>;
-        // } else {
         regPart = <div>
-            <p>You are logged in as a {decoded.user.username}</p>
+            <p>You are logged in as {decoded.user.username}</p>
             <Logout logout={logout}></Logout>
 
         </div>;

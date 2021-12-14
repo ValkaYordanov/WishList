@@ -13,7 +13,7 @@ function Logout(props) {
         <>
 
 
-            <button type="button" onClick={() => onSubmit()}>
+            <button class="btnLogout" type="button" onClick={() => onSubmit()}>
                 Logout!
             </button>
         </>

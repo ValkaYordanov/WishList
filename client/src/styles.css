@@ -42,3 +42,41 @@ input {
     padding: 16px;
     margin: 100 auto;
 }
+.btnLogout{
+  background-color: white; 
+  color: black; 
+  border: 2px solid #30cbff;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  transition-duration: 0.5s;
+  cursor: pointer;
+  border-radius: 10px;
+}
+.btnLogout:hover {
+  background-color: #008CBA;
+  color: white;
+}
+
+.wishContainer{
+  width: 60%;
+  border: solid;
+  margin: auto;
+  margin-top: 10px;
+  border-radius: 10px;
+  padding: 1em;
+  align-items: 'center' ;
+  margin-bottom: 2px;
+}
+
+.title{
+ 
+    text-shadow: 1px 2px #d36b09;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-family: "Gill Sans Extrabold", sans-serif;
+    color: rgba(white, 0.8);
+    font-weight: bold;
+   
+}

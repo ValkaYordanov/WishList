@@ -175,29 +175,29 @@ export default function App() {
     }
   }
 
-  let contents =
-    <>
-      <p>No Wishs!</p>
-      <Router>
-        <Wish path="/Wish/:id" getWish={getWish} incrementVote={incrementVote} decrementVote={decrementVote} addComment={addComment} getUser={getUser} deleteWish={deleteWish}></Wish>
-        <Wishes path="/" data={wishes} addWish={addWish} getUser={getUser}></Wishes>
+  // let contents =
+  //   <>
+  //     <p>No Wishs!</p>
+  //     <Router>
+  //       <Wish path="/Wish/:id" getWish={getWish} incrementVote={incrementVote} decrementVote={decrementVote} addComment={addComment} getUser={getUser} deleteWish={deleteWish}></Wish>
+  //       <Wishes path="/" data={wishes} addWish={addWish} getUser={getUser}></Wishes>
 
 
-      </Router>
-    </>
-    ;
-  if (wishes.length > 0) {
-    contents = (
-      <Router>
-        <AddWish path="/addWish" addWish={addWish} />
+  //     </Router>
+  //   </>
+  //   ;
+  // if (wishes.length > 0) {
+  //   contents = (
+  //     <Router>
+  //       <AddWish path="/addWish" addWish={addWish} />
 
-        <Wish path="/Wish/:id" getWish={getWish} incrementVote={incrementVote} decrementVote={decrementVote} addComment={addComment} getUser={getUser} deleteWish={deleteWish}></Wish>
-        <Wishes path="/" data={wishes} addWish={addWish} getUser={getUser}></Wishes>
+  //       <Wish path="/Wish/:id" getWish={getWish} incrementVote={incrementVote} decrementVote={decrementVote} addComment={addComment} getUser={getUser} deleteWish={deleteWish}></Wish>
+  //       <Wishes path="/" data={wishes} addWish={addWish} getUser={getUser}></Wishes>
 
 
-      </Router>
-    );
-  }
+  //     </Router>
+  //   );
+  // }
 
   // let regPart = <Registration createUser={createUser}></Registration>;
   // if (apiService.loggedIn()) {
@@ -225,18 +225,13 @@ export default function App() {
   //     </div>;
   //   }
   // }
-  let welcomePart = <></>;
-  if (apiService.loggedIn()) {
-    var decoded = jwt_decode(localStorage.getItem("token"));
-    welcomePart = <> <p>Welcome, {decoded.user.username}</p>
-      <Logout logout={logout}></Logout></>
-  }
+
 
 
 
   return (
     <>
-      {welcomePart}
+
 
       <Router>
         <Layout path="/">

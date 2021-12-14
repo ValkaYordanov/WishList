@@ -58,9 +58,9 @@ async function seedWishesData() {
     var id = userD.id
 
     const someData = [{
-      'title': 'The best phone in the world right now is the Samsung Galaxy S21 Ultra, but if that isn\'t for you we\'ve got 14 other top picks that may suit you, including the best iPhones and a variety of other Android phones. Our phone experts have spent years reviewing smartphones, and we\'ve tested all the best on the market to put together this definitive list of the very best smartphones you can buy in 2021.',
-      'description': ' Matt Swider ',
-      'externalLink': ' Matt Swider ',
+      'title': 'Wish to go to Dubai',
+      'description': ' This is my favorite place. I really like that place since it is very interesting to go to a place where before 100 years there was no any bulding but now is like ten cities in one big! ',
+      'externalLink': 'http://google.com',
       'vote': 6,
       'comments':
         [{
@@ -70,9 +70,9 @@ async function seedWishesData() {
         }]
     },
     {
-      'title': 'Title',
-      'description': ' Matt Swider ',
-      'externalLink': ' Matt Swider ',
+      'title': 'New Car - Mercedes Benz',
+      'description': ' This is my desired car at this moment! Is very popular and I would like to have it and have a lot of fun with my friends on the beach.',
+      'externalLink': 'http://google.com',
       'vote': 2,
       'comments':
         [{
