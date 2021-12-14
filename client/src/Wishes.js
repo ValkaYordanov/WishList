@@ -19,7 +19,7 @@ function Wishes(props) {
 
     return (
         <>
-            <h1 style={{ textAlign: 'center' }}>List of all posts</h1>
+            <h1 style={{ textAlign: 'center' }}>List of all Wishes</h1>
             <div style={{ width: '300px', border: 'solid', margin: '0 auto', textAlign: 'center', padding: '1em' }}>
 
                 {data.map(wish => <>

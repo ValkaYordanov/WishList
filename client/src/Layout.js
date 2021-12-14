@@ -16,15 +16,19 @@ if (apiService.loggedIn()) {
     userIsLogged = true;
 }
 export default props => (
-    <div>
-        <Link to="/">Home</Link>&nbsp;&nbsp;
+    <>
+        <div style={{ margin: '100 auto', textAlign: 'left', padding: '2em' }}>
+            <Link to="/">Home</Link>&nbsp;&nbsp;
 
-        <Link to="login">Login</Link>&nbsp;&nbsp;
+            <Link to="login">Login</Link>&nbsp;&nbsp;
 
-        {!userIsLogged ? <> <Link to="registration">Registration</Link>&nbsp;&nbsp;</> : null}
+            {!userIsLogged ? <> <Link to="registration">Registration</Link>&nbsp;&nbsp;</> : null}
 
-        {type == 'admin' ? <> <Link to="addWish">AddWish</Link>&nbsp;&nbsp;</> : null}
+            {type == 'admin' ? <> <Link to="addWish">AddWish</Link>&nbsp;&nbsp;</> : null}
+            <hr />
+            {props.children}
 
-        {props.children}
-    </div>
+        </div>
+
+    </>
 );

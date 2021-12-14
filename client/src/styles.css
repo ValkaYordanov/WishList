@@ -19,3 +19,26 @@ table, th, td {
   width: 90%;
   word-wrap: break-word;
 }
+input {
+  width: 30%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  border: 1px solid rgb(223, 47, 47);
+  box-sizing: border-box;
+}
+
+.regOrloginBtn{
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 30%;
+}
+
+.divForRegOrLog{
+    border: solid;
+    padding: 16px;
+    margin: 100 auto;
+}

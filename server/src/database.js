@@ -21,16 +21,8 @@ async function connectDatabase() {
 
 
 }
-async function hashPass(rawPass) {
-  return new Promise((resolve, reject) => {
-    bcrypt.hash(rawPass, 10, function (err, hash) {
-      if (err) reject(err);
-      else resolve(hash);
-    });
-  });
-}
-async function seedData() {
-  const numberOfWishes = await Wish.countDocuments();
+
+async function seedUsersData() {
   const numberOfUsers = await User.countDocuments();
   const users = [
 
@@ -53,14 +45,18 @@ async function seedData() {
     });
 
 
+  } else {
+    console.log("There is data for users!");
   }
+}
 
-
-
+async function seedWishesData() {
+  const numberOfWishes = await Wish.countDocuments();
   if (numberOfWishes == 0) {
 
-    var user = await User.findOne({ username: 'val' })
-    var id = user.id
+    var userD = await User.findOne({ username: 'val' })
+    var id = userD.id
+
     const someData = [{
       'title': 'The best phone in the world right now is the Samsung Galaxy S21 Ultra, but if that isn\'t for you we\'ve got 14 other top picks that may suit you, including the best iPhones and a variety of other Android phones. Our phone experts have spent years reviewing smartphones, and we\'ve tested all the best on the market to put together this definitive list of the very best smartphones you can buy in 2021.',
       'description': ' Matt Swider ',
@@ -77,7 +73,7 @@ async function seedData() {
       'title': 'Title',
       'description': ' Matt Swider ',
       'externalLink': ' Matt Swider ',
-      'vote': 6,
+      'vote': 2,
       'comments':
         [{
           'content': 'I completly agree! It is one of the best phone I have ever seen!',
@@ -85,10 +81,9 @@ async function seedData() {
           'date': new Date('2014-03-01T08:00:00Z')
         }]
     }];
-    Wish.insertMany(someData);
+    await Wish.insertMany(someData);
   } else {
-    console.log("There is data!");
+    console.log("There is data for wishes!");
   }
 }
-
-export { connectDatabase, seedData };
+export { connectDatabase, seedUsersData, seedWishesData };

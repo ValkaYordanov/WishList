@@ -9,10 +9,10 @@ function Login(props) {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-
+    const [errorMessage, setErrorMessage] = useState("");
 
     function onSubmit() {
-        login(username, password);
+        login(username, password, setErrorMessage);
     }
 
     function logout() {
@@ -25,22 +25,30 @@ function Login(props) {
         }
     }
 
-    let loginPart = <div><h3>Login</h3>
+    let loginPart = <> <h3>Login</h3>
+        <div class="divForRegOrLog">
 
-        <input
-            onChange={(event) => setUsername(event.target.value)}
-            type="text"
-            name="username"
-            placeholder="username"></input>
-        <input
-            onChange={(event) => setPassword(event.target.value)}
-            type="password"
-            name="password"
-            placeholder="password"></input>
 
-        <button type="button" onClick={() => onSubmit()}>
-            Login!
-        </button></div>;
+            <label for="uname"><b>Username</b></label><br></br>
+            <input
+                onChange={(event) => setUsername(event.target.value)}
+                type="text"
+                name="username"
+                placeholder="Enter username"></input>
+            <br></br><br></br>
+            <label for="psw"><b>Password</b></label><br></br>
+            <input
+                onChange={(event) => setPassword(event.target.value)}
+                type="password"
+                name="password"
+                placeholder="Enter password"></input>
+            <br></br>
+            <button class="regOrloginBtn" type="button" onClick={() => onSubmit()}>
+                Login
+            </button>
+            <div>{errorMessage && (<p>{errorMessage}</p>)}</div>
+        </div></>;
+
     if (apiService.loggedIn()) {
         var decoded = jwt_decode(localStorage.getItem("token"));
         loginPart = <div>
@@ -52,7 +60,7 @@ function Login(props) {
     }
     return (
         <>
-            <div style={{ border: 'solid', width: '6%' }}> <Link to="/"> Go to home</Link></div>
+            {/* <div style={{ border: 'solid', width: '6%' }}> <Link to="/"> Go to home</Link></div> */}
 
             {loginPart}
         </>

@@ -52,22 +52,23 @@ export default function App() {
 
 
 
-  async function createUser(username, password) {
-    try {
-      await apiService.createUser(username, password);
-      login(username, password);
-    } catch (error) {
-      console.error("Logout", error);
-    }
-  }
 
-  async function login(username, password) {
-    try {
-      await apiService.login(username, password);
-      getData();
-      window.location.reload();
-    } catch (error) {
-      console.error("Login", error);
+
+  async function login(username, password, setErrorMessage) {
+    if (username !== "" && password !== "") {
+      setErrorMessage("")
+
+      try {
+        await apiService.login(username, password);
+        getData();
+        window.location.reload();
+      } catch (error) {
+        setErrorMessage("Passowrd mistmatch or there is no user with this username!")
+        console.error("Passowrd mistmatch or there is no user with this username!", error);
+      }
+    } else {
+      setErrorMessage("Username and password need to be filled!")
+      throw "Username and password need to be filled!"
     }
   }
 
@@ -227,7 +228,6 @@ export default function App() {
   let welcomePart = <></>;
   if (apiService.loggedIn()) {
     var decoded = jwt_decode(localStorage.getItem("token"));
-    console.log(decoded)
     welcomePart = <> <p>Welcome, {decoded.user.username}</p>
       <Logout logout={logout}></Logout></>
   }
@@ -244,7 +244,7 @@ export default function App() {
           <Wish path="/Wish/:id" getWish={getWish} incrementVote={incrementVote} decrementVote={decrementVote} addComment={addComment} getUser={getUser} deleteWish={deleteWish}></Wish>
 
           <Login path="login" login={login} />
-          <Registration path="registration" createUser={createUser} />
+          <Registration path="registration" login={login} />
           <AddWish path="addWish" addWish={addWish} />
         </Layout>
       </Router>

@@ -12,7 +12,6 @@ class ApiService {
     }
 
     async createUser(username, password) {
-
         const response = await this.post("/users/registration", {
             username,
             password,
@@ -30,7 +29,6 @@ class ApiService {
         return response
     }
     async login(username, password) {
-        console.log(username, password)
         const response = await this.post("/users/authenticate", {
             username,
             password,
@@ -39,13 +37,6 @@ class ApiService {
     }
 
     loggedIn() {
-        // TODO: Check if token is expired using 'jwt-decode'
-        // TODO: Install using 'npm install jwt-decode'
-        /*
-        if (jwtDecode(token).exp < Date.now() / 1000) {
-            // Do something to renew token
-        }
-         */
         return this.getToken() !== null;
     }
 
