@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-/*
-A component that can add new numbers to a sum. The component renders the following:
-
-- The sum as a number (text) inside a <p> tag.
-- An input text field (HTML form element)
-- A button (HTML button element). When clicking the button, the component should add the number in the text field to the sum that is displayed.
-*/
+import { Link, navigate } from "@reach/router";
 
 function AddWish(props) {
 
@@ -19,10 +13,9 @@ function AddWish(props) {
         setTitle("");
         setDescription("");
         setExternalLink("");
-
-
-
     }
+
+
     return (
 
         <>
@@ -51,7 +44,7 @@ function AddWish(props) {
 
                         addWish(title, description, externalLink, setErrorMessage);
                         clearInput();
-
+                        navigate('/');
                     }}>Add Wish </button>
                 </div>
 

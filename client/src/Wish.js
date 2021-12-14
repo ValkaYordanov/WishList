@@ -10,7 +10,8 @@ function Wish(props) {
 
     const wish = props.getWish(props.id); // "props.id" contains the id in "/recipe/:id"
 
-    const { addVote } = props;
+    const { incrementVote } = props;
+    const { decrementVote } = props;
     const { deleteWish } = props;
     const { addComment } = props;
     const [comment, setComment] = useState("");
@@ -66,9 +67,13 @@ function Wish(props) {
                     {type == 'admin' ? <> <span size="+1"><strong>Vote:</strong></span>&nbsp;&nbsp;{wish.vote}
                         &nbsp;
                         <button type="button" onClick={(event) => {
-                            addVote(wish._id);
+                            incrementVote(wish._id);
                         }}>+</button>
+                        <button type="button" onClick={(event) => {
+                            decrementVote(wish._id);
+                        }}>-</button>
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</> : null}
+
 
                     <span size="+1"><strong>Comments:</strong></span>&nbsp;&nbsp; {(wish.comments).length}
                 </div>

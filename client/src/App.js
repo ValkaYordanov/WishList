@@ -1,18 +1,16 @@
 import "./styles.css";
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { Router } from "@reach/router";
+import { Router, navigate } from "@reach/router";
 import Wishes from "./Wishes";
-import { Link } from "@reach/router";
 import AddWish from "./AddWish";
 import Wish from "./Wish";
 import apiService from "./apiService";
-
+import Layout from "./Layout";
 import Login from "./Login";
 import Logout from "./Logout";
 import Registration from "./Registration";
 import jwt_decode from "jwt-decode";
-import { renderMatches } from "react-router-dom";
 
 const API_URL = process.env.REACT_APP_API;
 export default function App() {
@@ -51,14 +49,7 @@ export default function App() {
     return users.find((user) => user._id === id);
   };
 
-  function logout() {
-    try {
-      apiService.logout();
-      window.location.reload();
-    } catch (error) {
-      console.error("Logout", error);
-    }
-  }
+
 
 
   async function createUser(username, password) {
@@ -77,6 +68,16 @@ export default function App() {
       window.location.reload();
     } catch (error) {
       console.error("Login", error);
+    }
+  }
+
+  function logout() {
+    try {
+      apiService.logout();
+      navigate('/');
+      window.location.reload();
+    } catch (error) {
+      console.error("Logout", error);
     }
   }
 
@@ -112,10 +113,11 @@ export default function App() {
     }
   }
 
-  async function addVote(wishId) {
+
+  async function incrementVote(wishId) {
     const wish = wishes.find((wish) => wish._id === wishId);
     var index = wishes.findIndex((wish) => wish._id === wishId);
-    const updatedWish = await apiService.put(`/allWishes/addVote/${wishId}`,
+    const updatedWish = await apiService.put(`/allWishes/incrementVote/${wishId}`,
 
       { ...wish, vote: wish.vote + 1 },
     )
@@ -125,6 +127,18 @@ export default function App() {
 
   }
 
+  async function decrementVote(wishId) {
+    const wish = wishes.find((wish) => wish._id === wishId);
+    var index = wishes.findIndex((wish) => wish._id === wishId);
+    const updatedWish = await apiService.put(`/allWishes/decrementVote/${wishId}`,
+
+      { ...wish, vote: wish.vote - 1 },
+    )
+
+    setWishes([...wishes.slice(0, index), updatedWish, ...wishes.slice(index + 1)]);
+    getData()
+
+  }
 
   async function deleteWish(wishId) {
 
@@ -164,7 +178,7 @@ export default function App() {
     <>
       <p>No Wishs!</p>
       <Router>
-        <Wish path="/Wish/:id" getWish={getWish} addVote={addVote} addComment={addComment} getUser={getUser} deleteWish={deleteWish}></Wish>
+        <Wish path="/Wish/:id" getWish={getWish} incrementVote={incrementVote} decrementVote={decrementVote} addComment={addComment} getUser={getUser} deleteWish={deleteWish}></Wish>
         <Wishes path="/" data={wishes} addWish={addWish} getUser={getUser}></Wishes>
 
 
@@ -176,7 +190,7 @@ export default function App() {
       <Router>
         <AddWish path="/addWish" addWish={addWish} />
 
-        <Wish path="/Wish/:id" getWish={getWish} addVote={addVote} addComment={addComment} getUser={getUser} deleteWish={deleteWish}></Wish>
+        <Wish path="/Wish/:id" getWish={getWish} incrementVote={incrementVote} decrementVote={decrementVote} addComment={addComment} getUser={getUser} deleteWish={deleteWish}></Wish>
         <Wishes path="/" data={wishes} addWish={addWish} getUser={getUser}></Wishes>
 
 
@@ -184,42 +198,61 @@ export default function App() {
     );
   }
 
-  let regPart = <Registration createUser={createUser}></Registration>;
+  // let regPart = <Registration createUser={createUser}></Registration>;
+  // if (apiService.loggedIn()) {
+  //   var decoded = jwt_decode(localStorage.getItem("token"));
+
+  //   regPart = <p>Welcome, {decoded.user.username}</p>
+  // }
+
+  // let loginPart = <Login login={login}></Login>;
+  // if (apiService.loggedIn()) {
+  //   var decoded = jwt_decode(localStorage.getItem("token"));
+  //   console.log(decoded)
+  //   if (decoded.user.type == "admin") {
+  //     loginPart = <div>
+
+  //       <Logout logout={logout}></Logout>
+
+  //       <AddWish addWish={addWish} />
+  //     </div>;
+  //   } else {
+  //     loginPart = <div>
+
+  //       <Logout logout={logout}></Logout>
+
+  //     </div>;
+  //   }
+  // }
+  let welcomePart = <></>;
   if (apiService.loggedIn()) {
     var decoded = jwt_decode(localStorage.getItem("token"));
-
-    regPart = <p>Welcome, {decoded.user.username}</p>
-  }
-
-  let loginPart = <Login login={login}></Login>;
-  if (apiService.loggedIn()) {
-    var decoded = jwt_decode(localStorage.getItem("token"));
-    if (decoded.user.type == "admin") {
-      loginPart = <div>
-
-        <Logout logout={logout}></Logout>
-
-        <AddWish addWish={addWish} />
-      </div>;
-    } else {
-      loginPart = <div>
-
-        <Logout logout={logout}></Logout>
-
-      </div>;
-    }
+    console.log(decoded)
+    welcomePart = <> <p>Welcome, {decoded.user.username}</p>
+      <Logout logout={logout}></Logout></>
   }
 
 
 
   return (
     <>
+      {welcomePart}
 
-      {/* <Link to={`/addWish`}> add</Link> */}
+      <Router>
+        <Layout path="/">
+          <Wishes path="/" data={wishes} addWish={addWish} getUser={getUser}> </Wishes>
+          <Wish path="/Wish/:id" getWish={getWish} incrementVote={incrementVote} decrementVote={decrementVote} addComment={addComment} getUser={getUser} deleteWish={deleteWish}></Wish>
 
+          <Login path="login" login={login} />
+          <Registration path="registration" createUser={createUser} />
+          <AddWish path="addWish" addWish={addWish} />
+        </Layout>
+      </Router>
+
+      {/* 
       {regPart}
       {loginPart}
-      {contents}
+      {contents} */}
 
 
 

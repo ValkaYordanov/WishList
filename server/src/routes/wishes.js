@@ -4,7 +4,7 @@ import Wish from "../models/wish.js";
 const wishRoutes = express.Router();
 
 wishRoutes.get("/", async (req, res) => {
-  const posts = await Wish.find().sort({ createdAt: 'desc' }).populate({
+  const posts = await Wish.find().sort({ vote: 'desc', createdAt: 'desc' }).populate({
     path: 'comments.submitter',
     model: 'User'
   }).exec()
@@ -43,10 +43,26 @@ wishRoutes.delete("/deleteWish/:id", async (req, res) => {
 });
 
 
-wishRoutes.put('/addVote/:id', async (req, res) => {
+wishRoutes.put('/incrementVote/:id', async (req, res) => {
   try {
     const wish = await Wish.findById(req.params.id);
     wish.vote++;
+    wish.save();
+    res.status(201);
+    res.json(wish);
+  } catch (error) {
+    res.status(500);
+    res.json({
+      error: "Wish could not be liked",
+      details: error.toString(),
+    });
+  }
+});
+
+wishRoutes.put('/decrementVote/:id', async (req, res) => {
+  try {
+    const wish = await Wish.findById(req.params.id);
+    wish.vote--;
     wish.save();
     res.status(201);
     res.json(wish);
