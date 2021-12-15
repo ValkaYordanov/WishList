@@ -42,11 +42,12 @@ function Wish(props) {
         <div>
 
 
-
             <div class="singleWishContainer">
 
                 {type == 'admin' ? <>
                     {wish.received == false ? <div>
+                        <Link to={`/updateWish/${wish._id}`}><button class="btnDelete" type="button" >Update</button></Link>
+                        &nbsp; &nbsp; &nbsp;
                         <Link to="/"><button class="btnDelete" type="button" onClick={(event) => { deleteWish(wish._id); }}>Delete</button></Link>
                         &nbsp; &nbsp; &nbsp;
                         <span><strong>Vote:</strong></span>

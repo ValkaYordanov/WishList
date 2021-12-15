@@ -59,6 +59,25 @@ wishRoutes.put('/incrementVote/:id', async (req, res) => {
   }
 });
 
+wishRoutes.put('/updateSingleWish/:id', async (req, res) => {
+  try {
+
+    const wish = await Wish.findById(req.params.id);
+    wish.title = req.body.title + '';
+    wish.description = req.body.description + '';
+    wish.externalLink = req.body.externalLink + '';
+    wish.save();
+    res.status(201);
+    res.json(wish);
+  } catch (error) {
+    res.status(500);
+    res.json({
+      error: "Wish can not be updated!",
+      details: error.toString(),
+    });
+  }
+});
+
 wishRoutes.put('/decrementVote/:id', async (req, res) => {
   try {
     const wish = await Wish.findById(req.params.id);

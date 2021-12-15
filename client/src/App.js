@@ -1,9 +1,10 @@
 import "./styles.css";
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { Router } from "@reach/router";
+import { navigate, Router } from "@reach/router";
 import Wishes from "./Wishes";
 import AddWish from "./AddWish";
+import UpdateWish from "./UpdateWish";
 import Wish from "./Wish";
 import apiService from "./apiService";
 import Layout from "./Layout";
@@ -70,12 +71,6 @@ export default function App() {
 
     if (title !== "") {
       setErrorMessage("")
-      if (apiService.loggedIn()) {
-
-      } else {
-        setErrorMessage("You have to login in order to create a wish!")
-        throw "You have to log in!"
-      }
 
       const newWish = {
         title: title,
@@ -91,6 +86,7 @@ export default function App() {
         newWish,
       )
       setWishes([...wishes, resWish]);
+      navigate("/")
       window.location.reload();
     }
     else {
@@ -99,7 +95,7 @@ export default function App() {
   }
 
   async function makeReceived(wishId) {
-    const wish = wishes.find((wish) => wish._id === wishId);
+
     var index = wishes.findIndex((wish) => wish._id === wishId);
     const updatedWish = await apiService.put(`/allWishes/makeReceived/${wishId}`,
 
@@ -110,12 +106,33 @@ export default function App() {
 
   }
 
-  async function makeUnreceived(wishId) {
-    const wish = wishes.find((wish) => wish._id === wishId);
-    var index = wishes.findIndex((wish) => wish._id === wishId);
-    const updatedWish = await apiService.put(`/allWishes/makeUnreceived/${wishId}`,
+  async function updateWish(wishId, newTitle, newDescription, newExternalLink, setErrorMessage) {
 
-    )
+    if (newTitle !== "") {
+      setErrorMessage("")
+
+      const wish = wishes.find((wish) => wish._id === wishId);
+      var index = wishes.findIndex((wish) => wish._id === wishId);
+
+      const updatedWish = await apiService.put(`/allWishes/updateSingleWish/${wishId}`,
+        { ...wish, title: wish.title = newTitle, description: wish.description = newDescription, externalLink: wish.externalLink = newExternalLink }
+      )
+
+      setWishes([...wishes.slice(0, index), updatedWish, ...wishes.slice(index + 1)]);
+      //getData()
+      navigate("/")
+      window.location.reload();
+    } else {
+      setErrorMessage("The title must be filled!")
+    }
+
+  }
+
+
+  async function makeUnreceived(wishId) {
+
+    var index = wishes.findIndex((wish) => wish._id === wishId);
+    const updatedWish = await apiService.put(`/allWishes/makeUnreceived/${wishId}`,)
 
     setWishes([...wishes.slice(0, index), updatedWish, ...wishes.slice(index + 1)]);
     getData()
@@ -124,12 +141,9 @@ export default function App() {
 
 
   async function incrementVote(wishId) {
-    const wish = wishes.find((wish) => wish._id === wishId);
+
     var index = wishes.findIndex((wish) => wish._id === wishId);
-    const updatedWish = await apiService.put(`/allWishes/incrementVote/${wishId}`,
-
-
-    )
+    const updatedWish = await apiService.put(`/allWishes/incrementVote/${wishId}`,)
 
     setWishes([...wishes.slice(0, index), updatedWish, ...wishes.slice(index + 1)]);
     getData()
@@ -137,11 +151,9 @@ export default function App() {
   }
 
   async function decrementVote(wishId) {
-    const wish = wishes.find((wish) => wish._id === wishId);
-    var index = wishes.findIndex((wish) => wish._id === wishId);
-    const updatedWish = await apiService.put(`/allWishes/decrementVote/${wishId}`,
 
-    )
+    var index = wishes.findIndex((wish) => wish._id === wishId);
+    const updatedWish = await apiService.put(`/allWishes/decrementVote/${wishId}`,)
 
     setWishes([...wishes.slice(0, index), updatedWish, ...wishes.slice(index + 1)]);
     getData()
@@ -183,6 +195,7 @@ export default function App() {
           <Login path="login" login={login} />
           <Registration path="registration" users={users} login={login} />
           <AddWish path="addWish" addWish={addWish} />
+          <UpdateWish path="/updateWish/:id" getWish={getWish} updateWish={updateWish} />
         </Layout>
       </Router>
     </>

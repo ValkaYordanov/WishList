@@ -24,7 +24,7 @@ function AddWish(props) {
                 {errorMessage && (<p>{errorMessage}</p>)}
                 <div>
                     <p>Title:</p>
-                    <textarea maxLength='500' style={{ margin: '0 auto', width: '300px', height: '50px' }} id="contentID" onChange={(event) => setTitle(event.target.value)} type="text" />
+                    <input maxLength='500' style={{ margin: '0 auto', width: '300px', height: '50px' }} id="contentID" onChange={(event) => setTitle(event.target.value)} type="text" />
                     <div id="TitleId" />
                 </div>
                 <hr />
@@ -45,7 +45,7 @@ function AddWish(props) {
 
                         addWish(title, description, externalLink, setErrorMessage);
                         clearInput();
-                        navigate('/');
+
                     }}>Add Wish </button>
                 </div>
 
