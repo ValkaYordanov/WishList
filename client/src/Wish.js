@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "@reach/router";
+import { Link, navigate } from "@reach/router";
 import { useState } from "react";
 import "./styles.css";
 import jwt_decode from "jwt-decode";
@@ -37,101 +37,116 @@ function Wish(props) {
     }
     return (
 
-        <div className="background-orange" >
+        <div>
 
-            <div style={{ border: 'solid', background: 'pink', margin: '0 auto', width: '80%', padding: '1em' }}>
-                <div style={{ textAlign: 'center', margin: '0 auto' }} className="wrapContentPost" >
-                    <strong> Title:</strong> {wish.title}
-                </div>
-                <hr />
-                <div style={{ textAlign: 'center', margin: '0 auto' }}>
-                    <span size="+1"><strong>Date:</strong></span>&nbsp;&nbsp;
-                    {new Intl.DateTimeFormat('en-GB', {
+
+
+            <div class="singleWishContainer">
+
+                {type == 'admin' ? <> <div>
+                    <Link to="/"><button class="btnDelete" type="button" onClick={(event) => { deleteWish(wish._id); }}>Delete</button></Link>
+                    &nbsp; &nbsp; &nbsp;
+                    <span><strong>Vote:</strong></span>
+                    <button class="votebBtn" type="button" onClick={(event) => {
+                        incrementVote(wish._id);
+                    }}>+</button>
+                    {wish.vote}
+                    <button class="votebBtn" type="button" onClick={(event) => {
+                        decrementVote(wish._id);
+                    }}>-</button>
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                </div></> : null}
+                <div style={{ marginTop: '3%', textAlign: 'center', marginBottom: '4%' }}>
+                    <span class="title" style={{ fontSize: '33px', textDecoration: 'underline' }} > {wish.title}</span>
+                    &nbsp;&nbsp;
+                    <span> {new Intl.DateTimeFormat('en-GB', {
                         year: "numeric",
                         month: "long",
                         day: "2-digit"
-                    }).format(new Date(wish.createdAt))}
-                    {type == 'admin' ? <><Link to="/"><button type="button" onClick={(event) => { deleteWish(wish._id); }}>Delete</button></Link></> : null}
+                    }).format(new Date(wish.createdAt))}</span>  &nbsp;&nbsp;
 
                 </div>
-                <hr />
-                <div style={{ textAlign: 'center', margin: '0 auto' }} className="wrapContentPost" >
-                    <strong> Description:</strong> {wish.description}
-                </div>
-                <hr />
-                <div style={{ textAlign: 'center', margin: '0 auto' }} className="wrapContentPost" >
-                    <span size="+1"><strong>External Link:</strong></span>&nbsp;&nbsp; {wish.externalLink}
-                </div>
-                <hr />
-                <div style={{ textAlign: 'center', margin: '0 auto' }} className="wrapContentPost" >
-                    {type == 'admin' ? <> <span size="+1"><strong>Vote:</strong></span>&nbsp;&nbsp;{wish.vote}
-                        &nbsp;
-                        <button type="button" onClick={(event) => {
-                            incrementVote(wish._id);
-                        }}>+</button>
-                        <button type="button" onClick={(event) => {
-                            decrementVote(wish._id);
-                        }}>-</button>
-                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</> : null}
 
 
-                    <span size="+1"><strong>Comments:</strong></span>&nbsp;&nbsp; {(wish.comments).length}
+                <div class="wrapDescription" >
+                    {wish.description}
                 </div>
+
+                <div style={{ textAlign: 'left', margin: '0 auto', marginBottom: '2%' }} >
+                    <span><strong>More information here:</strong></span>&nbsp;&nbsp; <a href={wish.externalLink}><strong>{wish.externalLink}</strong></a>
+                </div>
+                <hr />
+
             </div>
             <br />
-            <div style={{ border: 'solid', width: '50%', margin: '0 auto', alignContent: 'center', padding: '1em' }}>
-                {type == 'admin' ? <>  <div>
-                    {errorMessage && (<p>{errorMessage}</p>)}
-                    <p style={{ margin: '0 auto' }}>Content:</p>
-                    <textarea id="commentId" style={{ margin: '0 auto', width: '400px', height: '80px' }} onChange={(event) => setComment(event.target.value)} type="text" />
-                    <div style={{ margin: '0 auto' }} id="CommentId" />
-                    <button style={{ margin: '0 auto' }} type="button" onClick={(event) => {
-                        console.log(comment, user)
-                        addComment(wish._id, comment, setErrorMessage);
-                        clearInput();
-                        document.getElementById('commentId').value = null;
+            <div class="singleWishContainer">
+                <div style={{ textAlign: 'center', margin: '0 auto' }} className="wrapContentPost" >
+                    <span style={{ margin: '0 auto', fontSize: '22px', fontWeight: 'bold' }}>Comments:</span>&nbsp;&nbsp; {(wish.comments).length}
+                </div></div>
 
-                    }}>Add Comment</button>
-                </div></> : type == 'visitor' ? <>  <div>
-                    {errorMessage && (<p>{errorMessage}</p>)}
-                    <p style={{ margin: '0 auto' }}>Content:</p>
-                    <textarea id="commentId" style={{ margin: '0 auto', width: '400px', height: '80px' }} onChange={(event) => setComment(event.target.value)} type="text" />
-                    <div style={{ margin: '0 auto' }} id="CommentId" />
-                    <button style={{ margin: '0 auto' }} type="button" onClick={(event) => {
-                        console.log(comment, user)
-                        addComment(wish._id, comment, setErrorMessage);
-                        clearInput();
-                        document.getElementById('commentId').value = null;
+            {type == 'admin' ? <>  <div class="addComment">
+                {errorMessage && (<p>{errorMessage}</p>)}
+                <p class="pAddComment">Add new comment:</p>
+                <textarea id="commentId" style={{ margin: '0 auto', width: '75%', height: '2%' }} onChange={(event) => setComment(event.target.value)} type="text" />
+                <div style={{ margin: '0 auto' }} id="CommentId" />
+                <button class="btn" type="button" onClick={(event) => {
+                    addComment(wish._id, comment, setErrorMessage);
+                    clearInput();
+                    document.getElementById('commentId').value = null;
 
-                    }}>Add Comment</button>
-                </div></> : null}
+                }}>Add Comment</button>
+            </div></> : type == 'visitor' ? <>  <div class="addComment">
+                {errorMessage && (<p>{errorMessage}</p>)}
+                <p class="pAddComment">Add new comment:</p>
+                <textarea id="commentId" style={{ margin: '0 auto', width: '75%', height: '2%' }} onChange={(event) => setComment(event.target.value)} type="text" />
+                <div style={{ margin: '0 auto' }} id="CommentId" />
+                <button class="btn" type="button" onClick={(event) => {
+                    addComment(wish._id, comment, setErrorMessage);
+                    clearInput();
+                    document.getElementById('commentId').value = null;
 
-                <hr style={{ height: '2px', backgroundColor: 'blue' }} />
-                <div style={{ textAlign: 'center' }} >
-                    <h1>All Comments</h1>
-                    <hr style={{ height: '2px', backgroundColor: 'blue' }} />
+                }}>Add Comment</button>
+            </div></> : null}
+
+
+            <div class="commentsContainer">
+                <div style={{ padding: '2px' }}>
+
+                    <hr style={{ height: '1px', backgroundColor: '#b4d798' }}></hr>
+                    <span style={{ fontSize: '30px' }}>All Comments</span>
+                    <hr style={{ height: '1px', backgroundColor: '#b4d798' }}></hr>
+                </div>
+
+                <div style={{}} >
+
                     <div style={{}}>
-                        {(wish.comments).map(comment =>
+                        {(wish.comments).sort((a, b) => {
+                            return new Date(a.date).getTime() -
+                                new Date(b.date).getTime()
+                        }).map(comment =>
 
                             <>
-                                <strong style={{ textAlign: 'left', height: '5px' }}>{comment.submitter.username} </strong>{new Intl.DateTimeFormat('en-GB', {
-                                    month: 'long',
-                                    day: '2-digit',
-                                    year: 'numeric',
-                                }).format(new Date(comment.date))}
-                                <p className="wrapContent"> {comment.content}</p>
-                                <hr />
+                                <div style={{ padding: '6px', border: '1px solid', borderRadius: '8px', marginBottom: '10px' }}>
+                                    <span style={{ textAlign: 'left', height: '5px', fontSize: '20px', fontStyle: 'italic', fontWeight: 'bold' }}>{comment.submitter.username} </span><br></br>
+                                    <span className="wrapContent"> {comment.content}</span><br></br>
+                                    <span style={{ fontSize: '12px', fontStyle: 'italic' }}>
+                                        {new Intl.DateTimeFormat('en-GB', {
+                                            month: 'long',
+                                            day: '2-digit',
+                                            year: 'numeric',
+                                        }).format(new Date(comment.date))}
+                                    </span>
+
+                                </div>
                             </>
                         )
                         }
                     </div>
                 </div>
-
-
-
-
             </div>
-            <div style={{ border: 'solid', width: '6%' }}> <Link to="/"> Go to home</Link></div>
+            <button class="btn" type="button" onClick={(event) => {
+                navigate('/');
+            }}>Back to home</button>
 
         </div >
     );

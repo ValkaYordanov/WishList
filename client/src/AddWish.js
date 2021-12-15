@@ -35,12 +35,12 @@ function AddWish(props) {
                 <hr />
                 <div>
                     <p>External Link:</p>
-                    <input id="usernameID" onChange={(event) => setExternalLink(event.target.value)} type="text" />
+                    <input class="" id="extraId" onChange={(event) => setExternalLink(event.target.value)} type="text" />
                     <div id="AuthorNameId" />
                 </div>
                 <hr />
                 <div >
-                    <button style={{ backgroundColor: 'green', height: '25px' }} type="button" onClick={(event) => {
+                    <button style={{ backgroundColor: 'green', height: '25px', borderRadius: '5px' }} type="button" onClick={(event) => {
 
                         addWish(title, description, externalLink, setErrorMessage);
                         clearInput();
