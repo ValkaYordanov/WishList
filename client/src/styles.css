@@ -158,3 +158,30 @@ input {
   border-radius: 5px;
   background-color: rgb(209 224 185);
 }
+
+.receivedbBtn{
+  background-color: rgb(52, 196, 221); 
+  color: black; 
+  border: 1px solid  rgb(16, 77, 112);
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  transition-duration: 0.5s;
+  cursor: pointer;
+  border-radius: 10px;
+  margin: 5px ;
+}
+
+.titleReceived{
+  text-shadow: 1px 2px #646464;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-family: "Gill Sans Extrabold", sans-serif;
+    color: rgba(white, 0.8);
+    font-weight: bold;
+}
+
+.received{
+  color: rgb(170, 170, 170);
+}

@@ -12,6 +12,7 @@ const wishSchema = new mongoose.Schema({
     type: String,
   },
   vote: Number,
+  received: { type: Boolean },
   comments: [{
     content: { type: String, required: true },
     submitter: {

@@ -62,6 +62,7 @@ async function seedWishesData() {
       'description': ' This is my favorite place. I really like that place since it is very interesting to go to a place where before 100 years there was no any bulding but now is like ten cities in one big! ',
       'externalLink': 'http://google.com',
       'vote': 6,
+      'received': false,
       'comments':
         [{
           'content': 'I completly agree! It is one of the best phone I have ever seen!',
@@ -74,6 +75,7 @@ async function seedWishesData() {
       'description': ' This is my desired car at this moment! Is very popular and I would like to have it and have a lot of fun with my friends on the beach.',
       'externalLink': 'http://google.com',
       'vote': 2,
+      'received': false,
       'comments':
         [{
           'content': 'I completly agree! It is one of the best phone I have ever seen!',

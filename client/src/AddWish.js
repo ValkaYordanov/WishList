@@ -19,6 +19,7 @@ function AddWish(props) {
     return (
 
         <>
+            <div style={{ width: '500px', margin: '10px auto', textAlign: 'center', padding: '10px', fontSize: '25px' }}><strong>Add new wish</strong></div>
             <div style={{ border: 'solid', width: '500px', margin: '0 auto', textAlign: 'center', padding: '1em' }}>
                 {errorMessage && (<p>{errorMessage}</p>)}
                 <div>

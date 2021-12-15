@@ -12,6 +12,7 @@ function Wish(props) {
 
     const { incrementVote } = props;
     const { decrementVote } = props;
+    const { makeReceived } = props;
     const { deleteWish } = props;
     const { addComment } = props;
     const [comment, setComment] = useState("");
@@ -43,19 +44,24 @@ function Wish(props) {
 
             <div class="singleWishContainer">
 
-                {type == 'admin' ? <> <div>
-                    <Link to="/"><button class="btnDelete" type="button" onClick={(event) => { deleteWish(wish._id); }}>Delete</button></Link>
-                    &nbsp; &nbsp; &nbsp;
-                    <span><strong>Vote:</strong></span>
-                    <button class="votebBtn" type="button" onClick={(event) => {
-                        incrementVote(wish._id);
-                    }}>+</button>
-                    {wish.vote}
-                    <button class="votebBtn" type="button" onClick={(event) => {
-                        decrementVote(wish._id);
-                    }}>-</button>
-                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                </div></> : null}
+                {type == 'admin' ? <>
+                    {wish.received == false ? <div>
+                        <Link to="/"><button class="btnDelete" type="button" onClick={(event) => { deleteWish(wish._id); }}>Delete</button></Link>
+                        &nbsp; &nbsp; &nbsp;
+                        <span><strong>Vote:</strong></span>
+                        <button class="votebBtn" type="button" onClick={(event) => {
+                            incrementVote(wish._id);
+                        }}>+</button>
+                        {wish.vote}
+                        <button class="votebBtn" type="button" onClick={(event) => {
+                            decrementVote(wish._id);
+                        }}>-</button>
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                        <button class="receivedbBtn" type="button" onClick={(event) => {
+                            makeReceived(wish._id);
+                        }}>Make received</button>
+                    </div> : <Link to="/"><button class="btnDelete" type="button" onClick={(event) => { deleteWish(wish._id); }}>Delete</button></Link>}
+                </> : null}
                 <div style={{ marginTop: '3%', textAlign: 'center', marginBottom: '4%' }}>
                     <span class="title" style={{ fontSize: '33px', textDecoration: 'underline' }} > {wish.title}</span>
                     &nbsp;&nbsp;
@@ -84,29 +90,32 @@ function Wish(props) {
                     <span style={{ margin: '0 auto', fontSize: '22px', fontWeight: 'bold' }}>Comments:</span>&nbsp;&nbsp; {(wish.comments).length}
                 </div></div>
 
-            {type == 'admin' ? <>  <div class="addComment">
-                {errorMessage && (<p>{errorMessage}</p>)}
-                <p class="pAddComment">Add new comment:</p>
-                <textarea id="commentId" style={{ margin: '0 auto', width: '75%', height: '2%' }} onChange={(event) => setComment(event.target.value)} type="text" />
-                <div style={{ margin: '0 auto' }} id="CommentId" />
-                <button class="btn" type="button" onClick={(event) => {
-                    addComment(wish._id, comment, setErrorMessage);
-                    clearInput();
-                    document.getElementById('commentId').value = null;
+            {wish.received == false ? <>
+                {type == 'admin' ? <>
+                    <div class="addComment">
+                        {errorMessage && (<p>{errorMessage}</p>)}
+                        <p class="pAddComment">Add new comment:</p>
+                        <textarea id="commentId" style={{ margin: '0 auto', width: '75%', height: '2%' }} onChange={(event) => setComment(event.target.value)} type="text" />
+                        <div style={{ margin: '0 auto' }} id="CommentId" />
+                        <button class="btn" type="button" onClick={(event) => {
+                            addComment(wish._id, comment, setErrorMessage);
+                            clearInput();
+                            document.getElementById('commentId').value = null;
 
-                }}>Add Comment</button>
-            </div></> : type == 'visitor' ? <>  <div class="addComment">
-                {errorMessage && (<p>{errorMessage}</p>)}
-                <p class="pAddComment">Add new comment:</p>
-                <textarea id="commentId" style={{ margin: '0 auto', width: '75%', height: '2%' }} onChange={(event) => setComment(event.target.value)} type="text" />
-                <div style={{ margin: '0 auto' }} id="CommentId" />
-                <button class="btn" type="button" onClick={(event) => {
-                    addComment(wish._id, comment, setErrorMessage);
-                    clearInput();
-                    document.getElementById('commentId').value = null;
+                        }}>Add Comment</button>
+                    </div></> : type == 'visitor' ? <>
+                        <div class="addComment">
+                            {errorMessage && (<p>{errorMessage}</p>)}
+                            <p class="pAddComment">Add new comment:</p>
+                            <textarea id="commentId" style={{ margin: '0 auto', width: '75%', height: '2%' }} onChange={(event) => setComment(event.target.value)} type="text" />
+                            <div style={{ margin: '0 auto' }} id="CommentId" />
+                            <button class="btn" type="button" onClick={(event) => {
+                                addComment(wish._id, comment, setErrorMessage);
+                                clearInput();
+                                document.getElementById('commentId').value = null;
 
-                }}>Add Comment</button>
-            </div></> : null}
+                            }}>Add Comment</button>
+                        </div></> : null}</> : null}
 
 
             <div class="commentsContainer">

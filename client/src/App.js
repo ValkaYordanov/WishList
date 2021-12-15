@@ -83,6 +83,7 @@ export default function App() {
         description: description,
         externalLink: externalLink,
         vote: 0,
+        received: false,
         comments: [],
       };
 
@@ -96,6 +97,19 @@ export default function App() {
     else {
       setErrorMessage("The title needs to be filled!")
     }
+  }
+
+  async function makeReceived(wishId) {
+    const wish = wishes.find((wish) => wish._id === wishId);
+    var index = wishes.findIndex((wish) => wish._id === wishId);
+    const updatedWish = await apiService.put(`/allWishes/makeReceived/${wishId}`,
+
+      { ...wish, vote: wish.received = true },
+    )
+
+    setWishes([...wishes.slice(0, index), updatedWish, ...wishes.slice(index + 1)]);
+    getData()
+
   }
 
   async function incrementVote(wishId) {
@@ -155,7 +169,7 @@ export default function App() {
       <Router>
         <Layout path="/">
           <Wishes path="/" data={wishes} addWish={addWish} getUser={getUser}> </Wishes>
-          <Wish path="/Wish/:id" getWish={getWish} incrementVote={incrementVote} decrementVote={decrementVote} addComment={addComment} getUser={getUser} deleteWish={deleteWish}></Wish>
+          <Wish path="/Wish/:id" getWish={getWish} makeReceived={makeReceived} incrementVote={incrementVote} decrementVote={decrementVote} addComment={addComment} getUser={getUser} deleteWish={deleteWish}></Wish>
           <Login path="login" login={login} />
           <Registration path="registration" login={login} />
           <AddWish path="addWish" addWish={addWish} />

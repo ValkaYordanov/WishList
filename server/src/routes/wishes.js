@@ -53,7 +53,7 @@ wishRoutes.put('/incrementVote/:id', async (req, res) => {
   } catch (error) {
     res.status(500);
     res.json({
-      error: "Wish could not be liked",
+      error: "Vote can not be incremented!",
       details: error.toString(),
     });
   }
@@ -69,14 +69,27 @@ wishRoutes.put('/decrementVote/:id', async (req, res) => {
   } catch (error) {
     res.status(500);
     res.json({
-      error: "Wish could not be liked",
+      error: "Vote can not be decremented!",
       details: error.toString(),
     });
   }
 });
 
-//lifting state up to the parrent for adding comment and update the page
-
+wishRoutes.put('/makeReceived/:id', async (req, res) => {
+  try {
+    const wish = await Wish.findById(req.params.id);
+    wish.received = true;
+    wish.save();
+    res.status(201);
+    res.json(wish);
+  } catch (error) {
+    res.status(500);
+    res.json({
+      error: "Wish could not be received!",
+      details: error.toString(),
+    });
+  }
+});
 
 wishRoutes.put('/addComment/:id', async (req, res) => {
   try {

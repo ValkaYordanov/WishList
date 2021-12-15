@@ -19,14 +19,20 @@ function Wishes(props) {
 
     return (
         <>
+
             <h1 style={{ textAlign: 'center' }}>List of all Wishes</h1>
 
-            <div>
+            <div >
                 {data.map(wish => <>
-                    <div>
-                        <div style={{ marginTop: '4%', textAlign: 'center' }}>
+                    <div class={wish.received == false ? null : "received"}>
+                        {wish.received == false ? <div style={{ marginTop: '4%', textAlign: 'center' }}>
                             <span class="title" ><Link to={`/Wish/${wish._id}`}> {wish.title}</Link></span>
                         </div>
+                            :
+                            <div style={{ marginTop: '4%', textAlign: 'center' }}>
+                                Received&nbsp; &nbsp;<span class="title" ><Link to={`/Wish/${wish._id}`}> {wish.title}</Link></span>
+                            </div>}
+
                         <div class="wishContainer">
 
                             <div >
@@ -50,16 +56,7 @@ function Wishes(props) {
                         </div>
                     </div>
                 </>
-
-
-
                 )}
-
-
-
-
-
-
             </div></>
 
     );
