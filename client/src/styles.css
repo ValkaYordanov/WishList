@@ -185,3 +185,30 @@ input {
 .received{
   color: rgb(170, 170, 170);
 }
+
+.commentBlock{
+  padding: 6px;
+  border: 1px solid;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.commentUser{
+  text-align: left;
+  height: 5px;
+  font-size: 20px;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.userType{
+  font-size: 12px;
+  font-style: normal;
+  font-weight: normal;
+}
+
+.textareaComment{
+  margin: 0 auto;
+  width: 75%;
+  height: 2%;
+}

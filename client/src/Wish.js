@@ -101,7 +101,7 @@ function Wish(props) {
                     <div class="addComment">
                         {errorMessage && (<p>{errorMessage}</p>)}
                         <p class="pAddComment">Add new comment:</p>
-                        <textarea id="commentId" style={{ margin: '0 auto', width: '75%', height: '2%' }} onChange={(event) => setComment(event.target.value)} type="text" />
+                        <textarea id="commentId" class="textareaComment" onChange={(event) => setComment(event.target.value)} type="text" />
                         <div style={{ margin: '0 auto' }} id="CommentId" />
                         <button class="btn" type="button" onClick={(event) => {
                             addComment(wish._id, comment, setErrorMessage);
@@ -113,7 +113,7 @@ function Wish(props) {
                         <div class="addComment">
                             {errorMessage && (<p>{errorMessage}</p>)}
                             <p class="pAddComment">Add new comment:</p>
-                            <textarea id="commentId" style={{ margin: '0 auto', width: '75%', height: '2%' }} onChange={(event) => setComment(event.target.value)} type="text" />
+                            <textarea id="commentId" class="textareaComment" onChange={(event) => setComment(event.target.value)} type="text" />
                             <div style={{ margin: '0 auto' }} id="CommentId" />
                             <button class="btn" type="button" onClick={(event) => {
                                 addComment(wish._id, comment, setErrorMessage);
@@ -132,17 +132,24 @@ function Wish(props) {
                     <hr style={{ height: '1px', backgroundColor: '#b4d798' }}></hr>
                 </div>
 
-                <div style={{}} >
+                <div>
 
-                    <div style={{}}>
+                    <div>
                         {(wish.comments).sort((a, b) => {
                             return new Date(a.date).getTime() -
                                 new Date(b.date).getTime()
                         }).map(comment =>
 
                             <>
-                                <div style={{ padding: '6px', border: '1px solid', borderRadius: '8px', marginBottom: '10px' }}>
-                                    <span style={{ textAlign: 'left', height: '5px', fontSize: '20px', fontStyle: 'italic', fontWeight: 'bold' }}>{comment.submitter.type == "admin" ? <span style={{ fontSize: '12px', fontStyle: 'normal', fontWeight: 'normal' }}>{comment.submitter.type}</span> : null} {comment.submitter.username} </span><br></br>
+                                <div class="commentBlock">
+                                    <span class="commentUser">
+                                        {comment.submitter.type == "admin" ?
+                                            <span class="userType">
+                                                {comment.submitter.type}
+                                            </span> : null}
+                                        {comment.submitter.username}
+                                    </span>
+                                    <br></br>
                                     <span className="wrapContent"> {comment.content}</span><br></br>
                                     <span style={{ fontSize: '12px', fontStyle: 'italic' }}>
                                         {new Intl.DateTimeFormat('en-GB', {
