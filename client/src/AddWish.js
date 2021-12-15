@@ -1,20 +1,42 @@
 import React, { useState } from "react";
+import apiService from "./apiService";
 import { navigate } from "@reach/router";
 
 function AddWish(props) {
 
+    const { setWishes } = props;
+    const { wishes } = props;
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [externalLink, setExternalLink] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
-    const { addWish } = props;
 
-    function clearInput() {
-        setTitle("");
-        setDescription("");
-        setExternalLink("");
+
+    async function addWish(title, description, externalLink, setErrorMessage) {
+
+        if (title !== "") {
+            setErrorMessage("")
+
+            const newWish = {
+                title: title,
+                description: description,
+                externalLink: externalLink,
+                vote: 0,
+                received: false,
+                comments: [],
+            };
+
+            const resWish = await apiService.post(`/allWishes/create`,
+                newWish,
+            )
+            setWishes([...wishes, resWish]);
+            navigate("/")
+            window.location.reload();
+        }
+        else {
+            setErrorMessage("The title needs to be filled!")
+        }
     }
-
 
     return (
 
@@ -24,28 +46,25 @@ function AddWish(props) {
                 {errorMessage && (<p>{errorMessage}</p>)}
                 <div>
                     <p>Title:</p>
-                    <input maxLength='500' style={{ margin: '0 auto', width: '300px', height: '50px' }} id="contentID" onChange={(event) => setTitle(event.target.value)} type="text" />
+                    <input maxLength='500' style={{ margin: '0 auto', width: '300px', height: '50px' }} id="titleID" onChange={(event) => setTitle(event.target.value)} type="text" />
                     <div id="TitleId" />
                 </div>
                 <hr />
                 <div>
                     <p>Description:</p>
-                    <textarea maxLength='500' style={{ margin: '0 auto', width: '300px', height: '50px' }} id="contentID" onChange={(event) => setDescription(event.target.value)} type="text" />
-                    <div id="ContentId" />
+                    <textarea maxLength='500' style={{ margin: '0 auto', width: '300px', height: '50px' }} id="descriptionID" onChange={(event) => setDescription(event.target.value)} type="text" />
+                    <div id="DescriptionId" />
                 </div>
                 <hr />
                 <div>
                     <p>External Link:</p>
-                    <input class="" id="extraId" onChange={(event) => setExternalLink(event.target.value)} type="text" />
-                    <div id="AuthorNameId" />
+                    <input class="" id="externalLinkId" onChange={(event) => setExternalLink(event.target.value)} type="text" />
+                    <div id="ExternalLinkId" />
                 </div>
                 <hr />
                 <div >
                     <button style={{ backgroundColor: 'green', height: '25px', borderRadius: '5px' }} type="button" onClick={(event) => {
-
                         addWish(title, description, externalLink, setErrorMessage);
-                        clearInput();
-
                     }}>Add Wish </button>
                 </div>
 

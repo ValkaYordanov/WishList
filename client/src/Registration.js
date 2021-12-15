@@ -14,7 +14,6 @@ function Registration(props) {
 
     function onSubmit() {
         createUser(username, password, setErrorMessage);
-        console.log(username, password);
     }
 
     async function createUser(username, password, setErrorMessage) {

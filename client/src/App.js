@@ -1,7 +1,7 @@
 import "./styles.css";
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { navigate, Router } from "@reach/router";
+import { Router } from "@reach/router";
 import Wishes from "./Wishes";
 import AddWish from "./AddWish";
 import UpdateWish from "./UpdateWish";
@@ -27,6 +27,7 @@ export default function App() {
       console.error(error);
     }
   }
+
   async function getUsersData() {
     try {
       const dataa = await apiService.getUsers();
@@ -67,33 +68,6 @@ export default function App() {
     }
   }
 
-  async function addWish(title, description, externalLink, setErrorMessage) {
-
-    if (title !== "") {
-      setErrorMessage("")
-
-      const newWish = {
-        title: title,
-        description: description,
-        externalLink: externalLink,
-        vote: 0,
-        received: false,
-        comments: [],
-      };
-
-      console.log(newWish);
-      const resWish = await apiService.post(`/allWishes/create`,
-        newWish,
-      )
-      setWishes([...wishes, resWish]);
-      navigate("/")
-      window.location.reload();
-    }
-    else {
-      setErrorMessage("The title needs to be filled!")
-    }
-  }
-
   async function makeReceived(wishId) {
 
     var index = wishes.findIndex((wish) => wish._id === wishId);
@@ -106,27 +80,7 @@ export default function App() {
 
   }
 
-  async function updateWish(wishId, newTitle, newDescription, newExternalLink, setErrorMessage) {
 
-    if (newTitle !== "") {
-      setErrorMessage("")
-
-      const wish = wishes.find((wish) => wish._id === wishId);
-      var index = wishes.findIndex((wish) => wish._id === wishId);
-
-      const updatedWish = await apiService.put(`/allWishes/updateSingleWish/${wishId}`,
-        { ...wish, title: wish.title = newTitle, description: wish.description = newDescription, externalLink: wish.externalLink = newExternalLink }
-      )
-
-      setWishes([...wishes.slice(0, index), updatedWish, ...wishes.slice(index + 1)]);
-      //getData()
-      navigate("/")
-      window.location.reload();
-    } else {
-      setErrorMessage("The title must be filled!")
-    }
-
-  }
 
 
   async function makeUnreceived(wishId) {
@@ -190,12 +144,12 @@ export default function App() {
     <>
       <Router>
         <Layout path="/">
-          <Wishes path="/" data={wishes} addWish={addWish} getUser={getUser}> </Wishes>
+          <Wishes path="/" data={wishes} getUser={getUser}> </Wishes>
           <Wish path="/Wish/:id" getWish={getWish} makeUnreceived={makeUnreceived} makeReceived={makeReceived} incrementVote={incrementVote} decrementVote={decrementVote} addComment={addComment} getUser={getUser} deleteWish={deleteWish}></Wish>
           <Login path="login" login={login} />
           <Registration path="registration" users={users} login={login} />
-          <AddWish path="addWish" addWish={addWish} />
-          <UpdateWish path="/updateWish/:id" getWish={getWish} updateWish={updateWish} />
+          <AddWish path="addWish" setWishes={setWishes} wishes={wishes} />
+          <UpdateWish path="/updateWish/:id" getWish={getWish} setWishes={setWishes} wishes={wishes} />
         </Layout>
       </Router>
     </>
