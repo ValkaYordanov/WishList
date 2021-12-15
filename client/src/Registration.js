@@ -85,6 +85,9 @@ function Registration(props) {
     return (
         <>
             {regPart}
+            <button class="btn" type="button" onClick={(event) => {
+                navigate('/');
+            }}>Back to home</button>
         </>
     );
 }

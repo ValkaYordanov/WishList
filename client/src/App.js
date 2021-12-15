@@ -103,7 +103,6 @@ export default function App() {
     var index = wishes.findIndex((wish) => wish._id === wishId);
     const updatedWish = await apiService.put(`/allWishes/makeReceived/${wishId}`,
 
-      { ...wish, vote: wish.received = true },
     )
 
     setWishes([...wishes.slice(0, index), updatedWish, ...wishes.slice(index + 1)]);
@@ -111,12 +110,25 @@ export default function App() {
 
   }
 
+  async function makeUnreceived(wishId) {
+    const wish = wishes.find((wish) => wish._id === wishId);
+    var index = wishes.findIndex((wish) => wish._id === wishId);
+    const updatedWish = await apiService.put(`/allWishes/makeUnreceived/${wishId}`,
+
+    )
+
+    setWishes([...wishes.slice(0, index), updatedWish, ...wishes.slice(index + 1)]);
+    getData()
+
+  }
+
+
   async function incrementVote(wishId) {
     const wish = wishes.find((wish) => wish._id === wishId);
     var index = wishes.findIndex((wish) => wish._id === wishId);
     const updatedWish = await apiService.put(`/allWishes/incrementVote/${wishId}`,
 
-      { ...wish, vote: wish.vote + 1 },
+
     )
 
     setWishes([...wishes.slice(0, index), updatedWish, ...wishes.slice(index + 1)]);
@@ -129,7 +141,6 @@ export default function App() {
     var index = wishes.findIndex((wish) => wish._id === wishId);
     const updatedWish = await apiService.put(`/allWishes/decrementVote/${wishId}`,
 
-      { ...wish, vote: wish.vote - 1 },
     )
 
     setWishes([...wishes.slice(0, index), updatedWish, ...wishes.slice(index + 1)]);
@@ -168,7 +179,7 @@ export default function App() {
       <Router>
         <Layout path="/">
           <Wishes path="/" data={wishes} addWish={addWish} getUser={getUser}> </Wishes>
-          <Wish path="/Wish/:id" getWish={getWish} makeReceived={makeReceived} incrementVote={incrementVote} decrementVote={decrementVote} addComment={addComment} getUser={getUser} deleteWish={deleteWish}></Wish>
+          <Wish path="/Wish/:id" getWish={getWish} makeUnreceived={makeUnreceived} makeReceived={makeReceived} incrementVote={incrementVote} decrementVote={decrementVote} addComment={addComment} getUser={getUser} deleteWish={deleteWish}></Wish>
           <Login path="login" login={login} />
           <Registration path="registration" users={users} login={login} />
           <AddWish path="addWish" addWish={addWish} />

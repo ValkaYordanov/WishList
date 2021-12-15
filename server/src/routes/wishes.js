@@ -31,8 +31,8 @@ wishRoutes.delete("/deleteWish/:id", async (req, res) => {
   try {
     const wish = await Wish.findByIdAndRemove(req.params.id);
     res.status(201);
-    const wishess = await Wish.find();
-    res.json(wishess);
+    const wishes = await Wish.find();
+    res.json(wishes);
   } catch (error) {
     res.status(500);
     res.json({
@@ -70,6 +70,22 @@ wishRoutes.put('/decrementVote/:id', async (req, res) => {
     res.status(500);
     res.json({
       error: "Vote can not be decremented!",
+      details: error.toString(),
+    });
+  }
+});
+
+wishRoutes.put('/makeUnreceived/:id', async (req, res) => {
+  try {
+    const wish = await Wish.findById(req.params.id);
+    wish.received = false;
+    wish.save();
+    res.status(201);
+    res.json(wish);
+  } catch (error) {
+    res.status(500);
+    res.json({
+      error: "Wish could not be unreceived!",
       details: error.toString(),
     });
   }

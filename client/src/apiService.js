@@ -80,12 +80,10 @@ class ApiService {
         }
     }
 
-    // Helper method for easy GET requests
     get(path) {
         return this.makeRequest(path, { method: "GET" });
     }
 
-    // Helper method for easy POST requests; just pass body as an object
     post(path, body) {
         return this.makeRequest(path, {
             method: "POST",
@@ -105,7 +103,7 @@ class ApiService {
     }
 }
 
-// Export a single instance of the class
+
 const apiService = new ApiService(API_URL);
 
 export default apiService;

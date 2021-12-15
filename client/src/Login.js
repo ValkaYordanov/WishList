@@ -61,9 +61,10 @@ function Login(props) {
     }
     return (
         <>
-            {/* <div style={{ border: 'solid', width: '6%' }}> <Link to="/"> Go to home</Link></div> */}
-
             {loginPart}
+            <button class="btn" type="button" onClick={(event) => {
+                navigate('/');
+            }}>Back to home</button>
         </>
     );
 }

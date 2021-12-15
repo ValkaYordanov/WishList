@@ -51,8 +51,10 @@ function Wishes(props) {
                                 month: "long",
                                 day: "2-digit"
                             }).format(new Date(wish.createdAt))}</strong></span>
-                            <span style={{ float: 'left' }}>{type == 'admin' ? <><strong>Vote: {wish.vote}</strong></> : null} &nbsp; &nbsp; &nbsp; &nbsp;
-                                Comments: <strong> {(wish.comments).length}</strong></span>
+                            <span style={{ float: 'left' }}>
+                                Vote: <strong>{wish.vote}</strong> &nbsp; &nbsp; &nbsp; &nbsp;
+                                Comments: <strong> {(wish.comments).length}</strong>
+                            </span>
                         </div>
                     </div>
                 </>

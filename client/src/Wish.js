@@ -13,6 +13,7 @@ function Wish(props) {
     const { incrementVote } = props;
     const { decrementVote } = props;
     const { makeReceived } = props;
+    const { makeUnreceived } = props;
     const { deleteWish } = props;
     const { addComment } = props;
     const [comment, setComment] = useState("");
@@ -60,7 +61,12 @@ function Wish(props) {
                         <button class="receivedbBtn" type="button" onClick={(event) => {
                             makeReceived(wish._id);
                         }}>Make received</button>
-                    </div> : <Link to="/"><button class="btnDelete" type="button" onClick={(event) => { deleteWish(wish._id); }}>Delete</button></Link>}
+                    </div> : <>
+                        <Link to="/"><button class="btnDelete" type="button" onClick={(event) => { deleteWish(wish._id); }}>Delete</button></Link>
+                        &nbsp; &nbsp; &nbsp;
+                        <button class="receivedbBtn" type="button" onClick={(event) => {
+                            makeUnreceived(wish._id);
+                        }}>Make unreceived</button></>}
                 </> : null}
                 <div style={{ marginTop: '3%', textAlign: 'center', marginBottom: '4%' }}>
                     <span class="title" style={{ fontSize: '33px', textDecoration: 'underline' }} > {wish.title}</span>
@@ -136,7 +142,7 @@ function Wish(props) {
 
                             <>
                                 <div style={{ padding: '6px', border: '1px solid', borderRadius: '8px', marginBottom: '10px' }}>
-                                    <span style={{ textAlign: 'left', height: '5px', fontSize: '20px', fontStyle: 'italic', fontWeight: 'bold' }}>{comment.submitter.username} </span><br></br>
+                                    <span style={{ textAlign: 'left', height: '5px', fontSize: '20px', fontStyle: 'italic', fontWeight: 'bold' }}>{comment.submitter.type == "admin" ? <span style={{ fontSize: '12px', fontStyle: 'normal', fontWeight: 'normal' }}>{comment.submitter.type}</span> : null} {comment.submitter.username} </span><br></br>
                                     <span className="wrapContent"> {comment.content}</span><br></br>
                                     <span style={{ fontSize: '12px', fontStyle: 'italic' }}>
                                         {new Intl.DateTimeFormat('en-GB', {
