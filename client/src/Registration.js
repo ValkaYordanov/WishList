@@ -4,9 +4,11 @@ import Logout from "./Logout";
 import jwt_decode from "jwt-decode";
 
 import { Link, navigate } from "@reach/router";
+import { useResolvedPath } from "react-router-dom";
 
 function Registration(props) {
     const { login } = props;
+    const { users } = props;
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -18,19 +20,24 @@ function Registration(props) {
     }
 
     async function createUser(username, password, setErrorMessage) {
-        if (username !== "" && password !== "") {
-            setErrorMessage("")
+        if (!users.find((user) => user.username === username)) {
+            if (username !== "" && password !== "") {
+                setErrorMessage("")
 
-            try {
-                await apiService.createUser(username, password);
-                login(username, password, setErrorMessage);
-                navigate('/');
-            } catch (error) {
-                console.error("Logout", error);
+                try {
+                    await apiService.createUser(username, password);
+                    login(username, password, setErrorMessage);
+                    navigate('/');
+                } catch (error) {
+                    console.error("Logout", error);
+                }
+            } else {
+                setErrorMessage("Username and password need to be filled!")
+                throw "Username and password need to be filled!"
             }
         } else {
-            setErrorMessage("Username and password need to be filled!")
-            throw "Username and password need to be filled!"
+            setErrorMessage("Username already exist!")
+            throw "Username already exist!"
         }
     }
 

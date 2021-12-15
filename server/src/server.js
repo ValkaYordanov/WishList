@@ -22,6 +22,7 @@ function createServer() {
   app.use(express.static(path.resolve("..", "client", "build")));
   const openPaths = [
     { url: "/api/users/authenticate", methods: ["POST"] },
+
     /^(?!\/api).*/gim,
 
     { url: /\/api\/questions\.*/gim, methods: ["GET"] },

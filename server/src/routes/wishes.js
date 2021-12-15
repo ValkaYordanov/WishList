@@ -120,7 +120,7 @@ wishRoutes.get("/:id", async (req, res) => {
   try {
     const wish = await Wish.findById(req.params.id).populate("submitter");
     if (wish) {
-      res.json(post);
+      res.json(wish);
     } else {
       res.status(404);
       res.json({ error: "Wish not found" });

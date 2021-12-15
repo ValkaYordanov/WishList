@@ -49,6 +49,7 @@ export default function App() {
     return users.find((user) => user._id === id);
   };
 
+
   async function login(username, password, setErrorMessage) {
     if (username !== "" && password !== "") {
       setErrorMessage("")
@@ -58,8 +59,8 @@ export default function App() {
         getData();
         window.location.reload();
       } catch (error) {
-        setErrorMessage("Passowrd mistmatch or there is no user with this username!")
-        console.error("Passowrd mistmatch or there is no user with this username!", error);
+        setErrorMessage("Password mistmatch or there is no user with this username!")
+        console.error("Password mistmatch or there is no user with this username!", error);
       }
     } else {
       setErrorMessage("Username and password need to be filled!")
@@ -74,7 +75,7 @@ export default function App() {
       if (apiService.loggedIn()) {
 
       } else {
-        setErrorMessage("You have to login in orfer to create a wish!")
+        setErrorMessage("You have to login in order to create a wish!")
         throw "You have to log in!"
       }
 
@@ -171,7 +172,7 @@ export default function App() {
           <Wishes path="/" data={wishes} addWish={addWish} getUser={getUser}> </Wishes>
           <Wish path="/Wish/:id" getWish={getWish} makeReceived={makeReceived} incrementVote={incrementVote} decrementVote={decrementVote} addComment={addComment} getUser={getUser} deleteWish={deleteWish}></Wish>
           <Login path="login" login={login} />
-          <Registration path="registration" login={login} />
+          <Registration path="registration" users={users} login={login} />
           <AddWish path="addWish" addWish={addWish} />
         </Layout>
       </Router>

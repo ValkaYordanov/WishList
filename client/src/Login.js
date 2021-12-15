@@ -13,7 +13,7 @@ function Login(props) {
 
     function onSubmit() {
         login(username, password, setErrorMessage);
-        navigate('/');
+
     }
 
     function logout() {

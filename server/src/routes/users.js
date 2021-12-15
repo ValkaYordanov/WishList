@@ -39,7 +39,7 @@ export function createUsersRouter(secret) {
         } catch (error) {
             res.status(500);
             res.json({
-                error: "USer could not be created",
+                error: "User could not be created",
                 details: error.toString(),
             });
         }
@@ -81,6 +81,7 @@ export function createUsersRouter(secret) {
             res.status(404).json({ msg: "User not found!" });
         }
     });
+
 
     return router;
 }
