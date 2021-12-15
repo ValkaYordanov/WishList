@@ -49,11 +49,6 @@ export default function App() {
     return users.find((user) => user._id === id);
   };
 
-
-
-
-
-
   async function login(username, password, setErrorMessage) {
     if (username !== "" && password !== "") {
       setErrorMessage("")
@@ -72,16 +67,6 @@ export default function App() {
     }
   }
 
-  function logout() {
-    try {
-      apiService.logout();
-      navigate('/');
-      window.location.reload();
-    } catch (error) {
-      console.error("Logout", error);
-    }
-  }
-
   async function addWish(title, description, externalLink, setErrorMessage) {
 
     if (title !== "") {
@@ -92,7 +77,6 @@ export default function App() {
         setErrorMessage("You have to login in orfer to create a wish!")
         throw "You have to log in!"
       }
-
 
       const newWish = {
         title: title,
@@ -113,7 +97,6 @@ export default function App() {
       setErrorMessage("The title needs to be filled!")
     }
   }
-
 
   async function incrementVote(wishId) {
     const wish = wishes.find((wish) => wish._id === wishId);
@@ -142,26 +125,17 @@ export default function App() {
   }
 
   async function deleteWish(wishId) {
-
-    const wishes = await apiService.delete(`/allWishes/deleteWish/${wishId}`,
-
-    )
+    const wishes = await apiService.delete(`/allWishes/deleteWish/${wishId}`);
     window.location.reload();
     setWishes(wishes);
   }
 
-
   async function addComment(wishId, comment, setErrorMessage) {
     if (comment !== "" && apiService.loggedIn()) {
       setErrorMessage("")
-
-
       var decoded = jwt_decode(localStorage.getItem("token"));
-
       var index = wishes.findIndex((wish) => wish._id === wishId);
-
       const newComment = { submitter: decoded.user, content: comment, date: Date.now() };
-
       const data = await apiService.put(`/allWishes/addComment/${wishId}`,
         newComment,
       )
@@ -175,82 +149,18 @@ export default function App() {
     }
   }
 
-  // let contents =
-  //   <>
-  //     <p>No Wishs!</p>
-  //     <Router>
-  //       <Wish path="/Wish/:id" getWish={getWish} incrementVote={incrementVote} decrementVote={decrementVote} addComment={addComment} getUser={getUser} deleteWish={deleteWish}></Wish>
-  //       <Wishes path="/" data={wishes} addWish={addWish} getUser={getUser}></Wishes>
-
-
-  //     </Router>
-  //   </>
-  //   ;
-  // if (wishes.length > 0) {
-  //   contents = (
-  //     <Router>
-  //       <AddWish path="/addWish" addWish={addWish} />
-
-  //       <Wish path="/Wish/:id" getWish={getWish} incrementVote={incrementVote} decrementVote={decrementVote} addComment={addComment} getUser={getUser} deleteWish={deleteWish}></Wish>
-  //       <Wishes path="/" data={wishes} addWish={addWish} getUser={getUser}></Wishes>
-
-
-  //     </Router>
-  //   );
-  // }
-
-  // let regPart = <Registration createUser={createUser}></Registration>;
-  // if (apiService.loggedIn()) {
-  //   var decoded = jwt_decode(localStorage.getItem("token"));
-
-  //   regPart = <p>Welcome, {decoded.user.username}</p>
-  // }
-
-  // let loginPart = <Login login={login}></Login>;
-  // if (apiService.loggedIn()) {
-  //   var decoded = jwt_decode(localStorage.getItem("token"));
-  //   console.log(decoded)
-  //   if (decoded.user.type == "admin") {
-  //     loginPart = <div>
-
-  //       <Logout logout={logout}></Logout>
-
-  //       <AddWish addWish={addWish} />
-  //     </div>;
-  //   } else {
-  //     loginPart = <div>
-
-  //       <Logout logout={logout}></Logout>
-
-  //     </div>;
-  //   }
-  // }
-
-
-
 
   return (
     <>
-
-
       <Router>
         <Layout path="/">
           <Wishes path="/" data={wishes} addWish={addWish} getUser={getUser}> </Wishes>
           <Wish path="/Wish/:id" getWish={getWish} incrementVote={incrementVote} decrementVote={decrementVote} addComment={addComment} getUser={getUser} deleteWish={deleteWish}></Wish>
-
           <Login path="login" login={login} />
           <Registration path="registration" login={login} />
           <AddWish path="addWish" addWish={addWish} />
         </Layout>
       </Router>
-
-      {/* 
-      {regPart}
-      {loginPart}
-      {contents} */}
-
-
-
     </>
   );
 }
