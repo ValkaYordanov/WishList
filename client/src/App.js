@@ -1,18 +1,16 @@
 import "./styles.css";
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { Router, navigate } from "@reach/router";
+import { Router } from "@reach/router";
 import Wishes from "./Wishes";
 import AddWish from "./AddWish";
 import Wish from "./Wish";
 import apiService from "./apiService";
 import Layout from "./Layout";
 import Login from "./Login";
-import Logout from "./Logout";
 import Registration from "./Registration";
 import jwt_decode from "jwt-decode";
 
-const API_URL = process.env.REACT_APP_API;
 export default function App() {
   const [wishes, setWishes] = useState([]);
   const [users, setUsers] = useState([]);

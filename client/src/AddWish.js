@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, navigate } from "@reach/router";
+import { navigate } from "@reach/router";
 
 function AddWish(props) {
 

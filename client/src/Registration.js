@@ -2,9 +2,7 @@ import { useState } from "react";
 import apiService from "./apiService";
 import Logout from "./Logout";
 import jwt_decode from "jwt-decode";
-
-import { Link, navigate } from "@reach/router";
-import { useResolvedPath } from "react-router-dom";
+import { navigate } from "@reach/router";
 
 function Registration(props) {
     const { login } = props;

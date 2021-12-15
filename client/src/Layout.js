@@ -29,8 +29,8 @@ function logout() {
 
 let welcomePart = <></>;
 if (apiService.loggedIn()) {
-    var decoded = jwt_decode(localStorage.getItem("token"));
-    welcomePart = <> Welcome, {decoded.user.username}&nbsp;&nbsp;
+    var decodedUser = jwt_decode(localStorage.getItem("token"));
+    welcomePart = <> Welcome, {decodedUser.user.username}&nbsp;&nbsp;
         <Logout logout={logout}></Logout></>
 }
 
