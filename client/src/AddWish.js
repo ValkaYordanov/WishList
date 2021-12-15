@@ -68,7 +68,9 @@ function AddWish(props) {
                     }}>Add Wish </button>
                 </div>
 
-
+                <button class="btn" type="button" onClick={(event) => {
+                    navigate('/');
+                }}>Back to home</button>
 
 
 
