@@ -1,10 +1,4 @@
-// TODO: Pull this variable from process.env.REACT_APP_API (via an .env file)
 const API_URL = process.env.REACT_APP_API;
-
-/**
- * Service class for interacting with an API, authenticating users against the
- * API, and storing JSON Web Tokens in the browser's localStorage.
- */
 
 class ApiService {
     constructor(api_url) {
@@ -58,7 +52,7 @@ class ApiService {
             "Content-Type": "application/json",
         };
 
-        // Automatically append the token if the user is logged in
+
         if (this.loggedIn()) {
             headers["Authorization"] = `Bearer ${this.getToken()}`;
         }
@@ -72,7 +66,7 @@ class ApiService {
             if (response.ok) {
                 return parsedResponse;
             } else {
-                // The response contains an object with an error message; throw it as an error
+
                 throw parsedResponse;
             }
         } catch (error) {

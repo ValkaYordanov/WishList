@@ -130,7 +130,6 @@ wishRoutes.put('/addComment/:id', async (req, res) => {
   try {
     const wish = await Wish.findByIdAndUpdate({ _id: req.params.id },
       {
-        // $push: { comments: { ...req.body, username: req.user.username } }
         $push: { comments: req.body }
       },
       {
@@ -138,8 +137,7 @@ wishRoutes.put('/addComment/:id', async (req, res) => {
       }
 
     );
-    // post.comments = [{ ...post.comments }, [req.body]];
-    // post.save();
+
     res.status(201);
     res.json(wish);
   } catch (error) {

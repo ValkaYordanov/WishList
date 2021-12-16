@@ -1,13 +1,9 @@
 /* Node.js libraries */
 import path from "path";
 
-/* External libraries */
 import express from "express";
-import morgan from "morgan";
 import cors from "cors";
-import checkJwt from "express-jwt"; // Validates access tokens automatically
-
-/* Local files */
+import checkJwt from "express-jwt";
 import postRoutes from "./routes/wishes.js";
 import { createUsersRouter } from "./routes/users.js";
 

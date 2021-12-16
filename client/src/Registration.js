@@ -7,7 +7,6 @@ import { navigate } from "@reach/router";
 function Registration(props) {
     const { login } = props;
     const { users } = props;
-
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
@@ -47,6 +46,7 @@ function Registration(props) {
             console.error("Logout", error);
         }
     }
+
     let regPart = <> <h3>Registration</h3>
         <div class="divForRegOrLog">
             <label for="uname"><b>Username</b></label><br></br>
@@ -78,7 +78,7 @@ function Registration(props) {
             <Logout logout={logout}></Logout>
 
         </div>;
-        //}
+
     }
 
     return (

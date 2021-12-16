@@ -5,8 +5,8 @@ import jwt_decode from "jwt-decode";
 import { navigate } from "@reach/router";
 
 function Login(props) {
-    const { login } = props;
 
+    const { login } = props;
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
@@ -28,8 +28,6 @@ function Login(props) {
 
     let loginPart = <> <h3>Login</h3>
         <div class="divForRegOrLog">
-
-
             <label for="uname"><b>Username</b></label><br></br>
             <input
                 onChange={(event) => setUsername(event.target.value)}

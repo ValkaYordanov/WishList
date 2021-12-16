@@ -1,5 +1,3 @@
-
-
 function Logout(props) {
     const { logout } = props;
 

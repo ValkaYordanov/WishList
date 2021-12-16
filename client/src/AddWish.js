@@ -11,7 +11,6 @@ function AddWish(props) {
     const [externalLink, setExternalLink] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
 
-
     async function addWish(title, description, externalLink, setErrorMessage) {
 
         if (title !== "") {
@@ -41,24 +40,24 @@ function AddWish(props) {
     return (
 
         <>
-            <div style={{ width: '500px', margin: '10px auto', textAlign: 'center', padding: '10px', fontSize: '25px' }}><strong>Add new wish</strong></div>
-            <div style={{ border: 'solid', width: '500px', margin: '0 auto', textAlign: 'center', padding: '1em' }}>
+            <div class="addUpdateWishTitle"><strong>Add new wish</strong></div>
+            <div class="addUpdateWishContainer">
                 {errorMessage && (<p>{errorMessage}</p>)}
                 <div>
                     <p>Title:</p>
-                    <input maxLength='500' style={{ margin: '0 auto', width: '300px', height: '50px' }} id="titleID" onChange={(event) => setTitle(event.target.value)} type="text" />
+                    <input style={{ width: '50%' }} id="titleID" onChange={(event) => setTitle(event.target.value)} type="text" />
                     <div id="TitleId" />
                 </div>
                 <hr />
                 <div>
                     <p>Description:</p>
-                    <textarea maxLength='500' style={{ margin: '0 auto', width: '300px', height: '50px' }} id="descriptionID" onChange={(event) => setDescription(event.target.value)} type="text" />
+                    <textarea id="descriptionID" style={{ width: '70%' }} onChange={(event) => setDescription(event.target.value)} type="text" />
                     <div id="DescriptionId" />
                 </div>
                 <hr />
                 <div>
                     <p>External Link:</p>
-                    <input class="" id="externalLinkId" onChange={(event) => setExternalLink(event.target.value)} type="text" />
+                    <input style={{ width: '75%', }} id="externalLinkId" onChange={(event) => setExternalLink(event.target.value)} type="text" />
                     <div id="ExternalLinkId" />
                 </div>
                 <hr />
@@ -71,9 +70,6 @@ function AddWish(props) {
                 <button class="btn" type="button" onClick={(event) => {
                     navigate('/');
                 }}>Back to home</button>
-
-
-
 
             </div>
         </>

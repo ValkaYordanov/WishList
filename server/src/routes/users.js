@@ -57,12 +57,12 @@ export function createUsersRouter(secret) {
             res.status(401).json({ msg: msg });
             return;
         }
-        //const user = users.find((user) => user.username === username);
+
         const user = await User.findOne({ username: username });
 
-        //const post = await Post.find({ userId: req.user.userId })
+
         if (user) {
-            // If the user is found
+
             if (bcrypt.compareSync(password, user.password)) {
                 const payload = { user };
                 const token = jwt.sign(payload, secret, {

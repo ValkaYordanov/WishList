@@ -16,7 +16,6 @@ export default function App() {
   const [wishes, setWishes] = useState([]);
   const [users, setUsers] = useState([]);
 
-
   async function getData() {
     try {
       const data = await apiService.getWishes();
@@ -49,7 +48,6 @@ export default function App() {
     return users.find((user) => user._id === id);
   };
 
-
   async function login(username, password, setErrorMessage) {
     if (username !== "" && password !== "") {
       setErrorMessage("")
@@ -71,17 +69,12 @@ export default function App() {
   async function makeReceived(wishId) {
 
     var index = wishes.findIndex((wish) => wish._id === wishId);
-    const updatedWish = await apiService.put(`/allWishes/makeReceived/${wishId}`,
-
-    )
+    const updatedWish = await apiService.put(`/allWishes/makeReceived/${wishId}`,)
 
     setWishes([...wishes.slice(0, index), updatedWish, ...wishes.slice(index + 1)]);
     getData()
 
   }
-
-
-
 
   async function makeUnreceived(wishId) {
 
@@ -92,7 +85,6 @@ export default function App() {
     getData()
 
   }
-
 
   async function incrementVote(wishId) {
 

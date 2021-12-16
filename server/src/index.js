@@ -1,4 +1,3 @@
-// Imports environment variables from a .env file
 import "dotenv/config";
 import createServer from "./server.js";
 import { connectDatabase, seedUsersData, seedWishesData } from "./database.js";

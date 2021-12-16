@@ -1,18 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { navigate } from "@reach/router";
 import apiService from "./apiService";
 
 function UpdateWish(props) {
 
     const { setWishes } = props;
+    const { getWish } = props;
     const { wishes } = props;
-    const wish = props.getWish(props.id);
+    const { id } = props;
     const [newTitle, setNewTitle] = useState("");
     const [newDescription, setNewDescription] = useState("");
     const [newExternalLink, setNewExternalLink] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
 
 
+
+    var wish;
+    wish = getWish(id);
+    useEffect(() => setNewTitle(wish?.title), [wish?.title]);
+    useEffect(() => setNewDescription(wish?.description), [wish?.description]);
+    useEffect(() => setNewExternalLink(wish?.externalLink), [wish?.externalLink]);
 
     async function updateWish(wishId, newTitle, newDescription, newExternalLink, setErrorMessage) {
 
@@ -38,23 +45,23 @@ function UpdateWish(props) {
     return (
 
         <>
-            <div style={{ width: '500px', margin: '10px auto', textAlign: 'center', padding: '10px', fontSize: '25px' }}><strong>Update wish</strong></div>
-            <div style={{ border: 'solid', width: '500px', margin: '0 auto', textAlign: 'center', padding: '1em' }}>
+            <div class="addUpdateWishTitle"><strong>Update wish</strong></div>
+            <div class="addUpdateWishContainer">
                 {errorMessage && (<p>{errorMessage}</p>)}
                 <div>
                     <p>Title:</p>
-                    <input id="titleID" onChange={(event) => setNewTitle(event.target.value)} type="text" />
+                    <input value={newTitle} style={{ width: '50%' }} id="titleID" onChange={(event) => setNewTitle(event.target.value)} type="text" />
                     <div id="TitleId" />
                 </div>
                 <hr />
                 <div>
                     <p>Description:</p>
-                    <textarea style={{ margin: '0 auto', width: '300px', height: '50px' }} id="descriptionID" onChange={(event) => setNewDescription(event.target.value)} type="text" />
+                    <textarea value={newDescription} style={{ margin: '0 auto', width: '300px', height: '50px' }} id="descriptionID" onChange={(event) => setNewDescription(event.target.value)} type="text" />
                 </div>
                 <hr />
                 <div>
                     <p>External Link:</p>
-                    <input id="extraID" onChange={(event) => setNewExternalLink(event.target.value)} type="text" />
+                    <input id="extraID" value={newExternalLink} style={{ width: '75%' }} onChange={(event) => setNewExternalLink(event.target.value)} type="text" />
                     <div id="ExternalLinkId" />
                 </div>
                 <hr />
@@ -67,12 +74,6 @@ function UpdateWish(props) {
                         navigate('/');
                     }}>Back to home</button>
                 </div>
-
-
-
-
-
-
             </div>
 
         </>

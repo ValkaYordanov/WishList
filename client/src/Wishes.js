@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "@reach/router";
 import jwt_decode from "jwt-decode";
 
-// Nothing special happens in this component, except for the Link
 function Wishes(props) {
     var { data } = props;
 

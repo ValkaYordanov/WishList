@@ -213,3 +213,19 @@ input {
   width: 75%;
   height: 2%;
 }
+
+.addUpdateWishTitle{
+  width: 500px;
+  margin: 10px auto;
+  text-align: center;
+  padding: 10px;
+  font-size: 25px;
+}
+
+.addUpdateWishContainer{
+  border: solid;
+  width: 500px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 1em;
+}

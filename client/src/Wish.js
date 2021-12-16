@@ -1,14 +1,12 @@
 import React from "react";
 import { Link, navigate } from "@reach/router";
 import { useState } from "react";
-import "./styles.css";
 import jwt_decode from "jwt-decode";
 
-// Nothing special happens in this component, except for the Link
 function Wish(props) {
 
 
-    const wish = props.getWish(props.id); // "props.id" contains the id in "/recipe/:id"
+    const wish = props.getWish(props.id);
 
     const { incrementVote } = props;
     const { decrementVote } = props;
