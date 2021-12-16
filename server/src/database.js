@@ -61,7 +61,7 @@ async function seedWishesData() {
 
     const someData = [{
       'title': 'I wish to go to Dubai',
-      'description': 'This is my favorite place. I really like that place since it is very interesting to go to a place where before 100 years there was no any bulding but now is like ten cities in one big! One of my biggest dream is to go to the building that is the tallest one the world!',
+      'description': 'This is my favorite place. I really like that place since it is very interesting to go to a place where before 100 years there was no building but now are like ten cities in one big! One of my biggest dreams is to go to the building that is the tallest one in the world!',
       'externalLink': 'https://www.visitdubai.com/en/',
       'vote': 0,
       'received': false,
@@ -72,7 +72,7 @@ async function seedWishesData() {
           'date': new Date('2021-05-25T08:00:00Z')
         },
         {
-          'content': 'One of my friends told me 2 years ago since hew was there 3 times already?',
+          'content': 'One of my friends told me 2 years ago since he was there 3 times already?',
           'submitter': idV,
           'date': new Date('2021-06-05T08:00:00Z')
         },
@@ -84,7 +84,7 @@ async function seedWishesData() {
     },
     {
       'title': 'New Car - Mercedes Benz CLS',
-      'description': 'This is my desired car at this moment! Is very popular and I would like to have it and have a lot of fun with my friends and family. The exact model that I what is CLS 350 4x4. It is on Diesel fuel and I want it to be in black colour. My family is very big fan of this brand so I am also a person who really like Mercedes - Benz!',
+      'description': 'This is my desired car at this moment! Is very popular and I would like to have it and have a lot of fun with my friends and family. The exact model that I what is CLS 350 4x4. It is on Diesel fuel and I want it to be in black color. My family is a very big fan of this brand so I am also a person who really likes Mercedes - Benz!',
       'externalLink': 'https://www.autocar.co.uk/car-review/mercedes-benz/cls/first-drives/mercedes-benz-cls-350-bluetec-first-drive-review',
       'vote': 10,
       'received': false,
@@ -123,53 +123,53 @@ async function seedWishesData() {
           'date': new Date('2021-02-20T08:00:00Z')
         },
         {
-          'content': 'Nice! I hope I will have it soon also',
+          'content': 'Nice! I hope I will have it soon also.',
           'submitter': idV,
           'date': new Date('2021-02-25T08:00:00Z')
         },
         {
-          'content': 'If you were a good students during the last year, I am sure will get it!',
+          'content': 'If you were a good student during the last year, I am sure you will get it!',
           'submitter': idD,
           'date': new Date('2021-03-01T08:00:00Z')
         },
         {
-          'content': 'I am doing my best to be the best student, but of course sometimes in not that easy but I am still trying!',
+          'content': 'I am doing my best to be the best student, but of course sometimes is not that easy but I am still trying!',
           'submitter': idV,
           'date': new Date('2021-03-01T08:00:00Z')
         }]
     },
     {
       'title': 'Wish for new electric scooter',
-      'description': 'In Denmark is very expensive to have car. It is not like in Bulgaria where you can find cheap car and to drive it everywhere. That\'s why here in Denmark I am using my bike. It is a bit old and it is hard to use it on a big hill. That\'s why I would like to have an electric scooter. I know from my friends that is very easy to drive it and it is very powerful!',
+      'description': 'In Denmark is very expensive to have a car. It is not like in Bulgaria where you can find cheap car and drive it everywhere. That\'s why here in Denmark I am using my bike. It is a bit old and it is hard to use it on a big hill. That\'s why I would like to have an electric scooter. I know from my friends that is very easy to drive it and it is very powerful!',
       'externalLink': 'https://www.biltema.dk/en-dk/bike-electrical-bike/electrical-vehicle/e-scooter-2000043674',
       'vote': 4,
       'received': true,
       'comments':
         [{
-          'content': 'That is great idea! I have it and it very helpful.',
+          'content': 'That is great idea! I have it and it is very helpful.',
           'submitter': idD,
           'date': new Date('2021-08-18T08:00:00Z')
         },
         {
-          'content': 'Yes, it is! I already get it asa present for my birthday! It is just perfect ot use it around the city!',
+          'content': 'Yes, it is! I already get it as a present for my birthday! It is just perfect to use it around the city!',
           'submitter': idV,
           'date': new Date('2021-08-20T08:00:00Z')
         },
         {
-          'content': 'Very nice Valentin congrats about that!',
+          'content': 'Very nice Valentin, congrats about that!',
           'submitter': idD,
           'date': new Date('2021-09-03T08:00:00Z')
         }]
     },
     {
       'title': 'Wish for new computer',
-      'description': 'My current laptop is very old. I have it from 6 years. But to be honest is working pretty good for its years. I wish a new one because I would like to work with Android projects but for that I need Android Studio. Right now I have it but is very slow. I wish a new computer, I don\'t have any specific brands. I want it to be just faster.',
+      'description': 'My current laptop is very old. I have had it for 6 years. But to be honest is working pretty well for its years. I wish for a new one because I would like to work with Android projects but for that, I need Android Studio. Right now I have it but is very slow. I wish for a new computer, I don\'t have any specific brands. I want it to be just faster.',
       'externalLink': 'https://www.elgiganten.dk/computer-kontor/computere/barbar-computer',
       'vote': 8,
       'received': false,
       'comments':
         [{
-          'content': 'Hi Valentin, you cana check Lenovo. THey have some very nice discounts this month!',
+          'content': 'Hi Valentin, you can check Lenovo. They have some very nice discounts this month!',
           'submitter': idD,
           'date': new Date('2021-02-08T08:00:00Z')
         },
@@ -181,7 +181,7 @@ async function seedWishesData() {
     },
     {
       'title': 'Go to Pamporovo Resort',
-      'description': 'This is one of my wishes for travelling. During this time of the year I love to go in this Holiday resort because there is a lot of snow. One of my favorite thing to do is skiing. I love skiing from when I was 7 years old. This resort is full of different hotels and it is really nice there during the winter. I hope you can go and enjoy too!',
+      'description': 'This is one of my wishes for traveling. During this time of the year, I love to go to this Holiday resort because there is a lot of snow. One of my favorite thing to do is skiing. I love skiing from when I was 7 years old. This resort is full of different hotels and it is really nice there during the winter. I hope you can go and enjoy it too!',
       'externalLink': 'https://pamporovo.me/',
       'vote': 5,
       'received': false,
@@ -197,14 +197,14 @@ async function seedWishesData() {
           'date': new Date('2021-08-06T08:00:00Z')
         },
         {
-          'content': 'Thank you! I will check it out since I also love to skiing.',
+          'content': 'Thank you! I will check it out since I also love skiing.',
           'submitter': idD,
           'date': new Date('2021-08-08T08:00:00Z')
         }]
     },
     {
       'title': 'Wish to buy new bed',
-      'description': 'I wish to buy a new bed for my bedroom. The current one is very old and it makes a lot of scary noises during the night. The matress is very uncomfortable and also very old. I would liek a new one which could be very big one and very soft. My idea is to look for it in Jysk or Ikea. In which one you will advise me to go?',
+      'description': 'I wish to buy a new bed for my bedroom. The current one is very old and it makes a lot of scary noises during the night. The mattress is very uncomfortable and also very old. I would like a new one which could be a very big one and very soft. My idea is to look for it in Jysk or Ikea. In which one you will advise me to go?',
       'externalLink': 'https://www.ikea.com/dk/da/',
       'vote': 3,
       'received': false,
@@ -215,14 +215,14 @@ async function seedWishesData() {
           'date': new Date('2021-03-28T08:00:00Z')
         },
         {
-          'content': 'This very importnat actually. I forgot to mention that I need a cheap one! Thank you!',
+          'content': 'This is very important actually. I forgot to mention that I need a cheap one! Thank you!',
           'submitter': idV,
           'date': new Date('2021-04-02T08:00:00Z')
         }]
     },
     {
       'title': 'New tablet for my kid',
-      'description': 'My kid is watching a lot of videos and moview on his tablet. But of course it is a kid and by mistake he drop the tabplet many times per one day. The current tablet has problems with the touch pad, it is very dificult to use it. But it is still working. This is the reason that I will look for the same brand or Acer tablet. I will need also some case for it so to protect as much as possible. My idea is to look into Amazon.',
+      'description': 'My kid is watching a lot of videos and movies on his tablet. But of course, it is a kid and by mistake, he drops the tablet many times per one day. The current tablet has problems with the touchpad, it is very difficult to use it. But it is still working. This is the reason that I will look for the same brand or Acer tablet. I will need also some cases for it so as to protect as much as possible. My idea is to look into Amazon.',
       'externalLink': 'https://www.amazon.com/Amazon-Fire-Tablet-Family/b?ie=UTF8&node=6669703011',
       'vote': 2,
       'received': true,
@@ -233,20 +233,20 @@ async function seedWishesData() {
           'date': new Date('2021-05-12T08:00:00Z')
         },
         {
-          'content': 'Of course I will take a look. I also was thinking for Apple but they are too expensive I think. Thank you!',
+          'content': 'Of course, I will take a look. I also was thinking for Apple but they are too expensive I think. Thank you!',
           'submitter': idV,
           'date': new Date('2021-05-16T08:00:00Z')
         }]
     },
     {
       'title': 'Trip to Machu Picchu',
-      'description': 'This is another trip that I wish to make. I like the history about Machu Picchu. I am a person who is really interesting in the history. My friend from Paris was there last year and he told that is a great place for a people like me. It is one of the places in my list of wishes with high priority to go.',
+      'description': 'This is another trip that I wish to make. I like the history of Machu Picchu. I am a person who is really interesting in history. My friend from Paris was there last year and he told that is a great place for people like me. It is one of the places in my list of wishes with high priority to go.',
       'externalLink': 'https://en.wikipedia.org/wiki/Machu_Picchu',
       'vote': 16,
       'received': false,
       'comments':
         [{
-          'content': 'I was there last year. Is just amazin place to explore the world and the history.',
+          'content': 'I was there last year. Is just amaizing place to explore the world and the history.',
           'submitter': idD,
           'date': new Date('2021-01-22T08:00:00Z')
         },
@@ -263,7 +263,7 @@ async function seedWishesData() {
     },
     {
       'title': 'Wish for new watch',
-      'description': 'I really need a new watch. This is a wish for my birthaday. I hope my girlfriend will take care of it. Otherwise next year at some point I will save money for very good watch. I am really interesting into Casio and especially the model Edifice.',
+      'description': 'I really need a new watch. This is a wish for my birthday. I hope my girlfriend will take care of it. Otherwise next year at some point I will save money for a very good watch. I am really interested in Casio and especially the model Edifice.',
       'externalLink': 'https://edifice.casio.com/',
       'vote': 12,
       'received': false,
