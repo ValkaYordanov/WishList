@@ -13,8 +13,6 @@ function UpdateWish(props) {
     const [newExternalLink, setNewExternalLink] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
 
-
-
     var wish;
     wish = getWish(id);
     useEffect(() => setNewTitle(wish?.title), [wish?.title]);

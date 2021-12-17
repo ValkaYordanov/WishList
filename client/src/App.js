@@ -118,9 +118,7 @@ export default function App() {
       var decoded = jwt_decode(localStorage.getItem("token"));
       var index = wishes.findIndex((wish) => wish._id === wishId);
       const newComment = { submitter: decoded.user, content: comment, date: Date.now() };
-      const data = await apiService.put(`/allWishes/addComment/${wishId}`,
-        newComment,
-      )
+      const data = await apiService.put(`/allWishes/addComment/${wishId}`, newComment,)
 
       setWishes([...wishes.slice(0, index), data, ...wishes.slice(index + 1)]);
       getData()

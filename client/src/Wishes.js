@@ -14,8 +14,6 @@ function Wishes(props) {
     }
 
 
-
-
     return (
         <>
 

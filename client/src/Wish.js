@@ -5,9 +5,7 @@ import jwt_decode from "jwt-decode";
 
 function Wish(props) {
 
-
     const wish = props.getWish(props.id);
-
     const { incrementVote } = props;
     const { decrementVote } = props;
     const { makeReceived } = props;
@@ -38,8 +36,6 @@ function Wish(props) {
     return (
 
         <div>
-
-
             <div class="singleWishContainer">
 
                 {type == 'admin' ? <>
